@@ -1,0 +1,42 @@
+*{
+padding: 0;
+margin: 0;
+}
+
+
+.navBar{
+    background-color: aqua;
+    height: 12vh;
+    width: 100%;
+    position: fixed;                                        /*make the position fixed in view*/
+    top: 0;                                                 /*make the position top of view*/        
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 2px;
+}
+
+.navGrid{
+    width: 50%;
+    height: inherit;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.navButton{
+    
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: xx-large;
+    font-weight: bold;
+    text-shadow: -1.5px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: tomato;
+}
+
+.mainContent
+{
+    margin-top: 12vh;                                       /*lower the maincontent by height of navBar*/
+    background-color: aquamarine;
+    width: 100%;
+    min-height: 150vh;
+}
