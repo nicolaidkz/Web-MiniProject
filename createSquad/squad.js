@@ -1,8 +1,7 @@
 let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
 var navButtonRef = ["squad.html", undefined, ""];                           // button reference strings
 let $squadCard = $("#squadCard");
-let $closeSpan = $("sM-content").children("span");
-let $sModal = $("squadModel");
+let $sModal = $("#squadModal");
 onload = function()
 {
     // lets do things to the navButtons!
@@ -20,20 +19,26 @@ onload = function()
 function ToggleSquadCard()
 {
     console.log("clickety");
+    if($squadCard.hasClass("expand")) CloseModal();
     $squadCard.toggleClass("expand collapse");
 }
 
 
 
-$closeSpan.onclick = function() {
+function CloseModal() 
+{
     $sModal.hide();
     console.log("trying to close modal");
-  }
-  
-  // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == $sModal) {
-    $sModal.hide();
-    console.log("trying to close modal");
+}
+
+function ToggleModal(id)
+{
+    if($sModal.is(":visible")) 
+    {
+        $sModal.slideUp("slow");  // we should save choice of temtem (if any) before closing
+    }
+    else{
+        $sModal.slideDown("fast");
+        console.log(id); // here we know which squad placement is being changed   
     }
 }
