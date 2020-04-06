@@ -1,7 +1,8 @@
 let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
 var navButtonRef = ["squad.html", undefined, ""];                           // button reference strings
 let $squadCard = $("#squadCard");
-
+let $closeSpan = $("sM-content").children("span");
+let $sModal = $("squadModel");
 onload = function()
 {
     // lets do things to the navButtons!
@@ -22,3 +23,17 @@ function ToggleSquadCard()
     $squadCard.toggleClass("expand collapse");
 }
 
+
+
+$closeSpan.onclick = function() {
+    $sModal.hide();
+    console.log("trying to close modal");
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == $sModal) {
+    $sModal.hide();
+    console.log("trying to close modal");
+    }
+}
