@@ -3,10 +3,13 @@
     margin: 0;
     
 }
+.title
+{
+}
 .topNavBar
 {
     align-content: center;
-    height: 15vh;
+    height: auto;
     width: 100%;
     background-color: lightslategrey;
 }
