@@ -1,8 +1,53 @@
 var $mainContainer = $("#mainContent"); // jquery variable
 $mainContainer.html("");                // set html to nothing
+let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
+let $squadCard = $("#squadCard");
+var navButtonRef = ["../createSquad/squad.html", "main.html", ""];
+let $sModal = $("#squadModal");
+var temNames = [];
+
+onload = function()
+{
+    // lets do things to the navButtons!
+    $navButtons.addClass("navButton");                                      // give them style
+    $navButtons.each(function(index)
+    {
+        if(navButtonRef[index])                                             // is it TRUTHY ? (not true)
+        {
+            $(this).attr("href", navButtonRef[index]);                      // maybe give them a href?
+        }
+        else console.log(`missing URL for navButton  ${(index+1)} in navButtonRef!`);     
+    });      
+}
 
 MakeTemCall();                          // make a TemCall to API
-var temNames = [];
+
+
+function ToggleSquadCard()
+{
+    console.log("clickety");
+    if($squadCard.hasClass("expand")) CloseModal();
+    $squadCard.toggleClass("expand collapse");
+}
+
+function CloseModal() 
+{
+    $sModal.hide();
+    console.log("trying to close modal");
+}
+
+function ToggleModal(id)
+{
+    if($sModal.is(":visible")) 
+    {
+        $sModal.slideUp("slow");  // we should save choice of temtem (if any) before closing
+    }
+    else{
+        $sModal.slideDown("fast");
+        console.log(id); // here we know which squad placement is being changed   
+    }
+}
+
 // get *ALL* temtem with *ALL* information
 function MakeTemCall()
 {
@@ -66,4 +111,10 @@ function searchHide(){
             $("#"+a).hide();
         }
     }
+}
+function searchHideModal(){
+    var input, filter;
+    input = document.getElementById("modalInput");
+    filter = input.value.toUpperCase();
+    // add all the temtem images to the modal and hide/show here
 }

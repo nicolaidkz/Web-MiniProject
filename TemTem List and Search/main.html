@@ -13,18 +13,59 @@
     </head>
 
     <body>
-        <div id="topNavBar" class="topNavBar">
-            <p>TOP NAVIGATION BAR</p>
-        </div>
-        
-        <div>
-        <input type="text" id="myInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name">
-        </div>
-            
-            <div id="mainContainer" class="mainContainer">
-            <section id="mainContent" class="mainContent">
-            </section>
+        <div id="navBar">
+            <!-- left hand side, navButtons in grid -->
+            <div id="navGrid">
+				<a id="home">HOME</a>
+				<a id="search">SEARCH</a>
+				<a id="comp">COMPARE</a>
             </div>
+            
+        </div>
+        <!-- right hand side, slide-out squadCard-->
+        <div id="squadCard" class="collapse">
+            <img id="expander" onclick='ToggleSquadCard()' src="../createSquad/icons/new.png"></img>
+            <div id="rosterGrid">
+                <div id="t1" onclick="ToggleModal('t1')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+                <div id="t2" onclick="ToggleModal('t2')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+                <div id="t3" onclick="ToggleModal('t3')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+                <div id="t4" onclick="ToggleModal('t4')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+                <div id="t5" onclick="ToggleModal('t5')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+                <div id="t6" onclick="ToggleModal('t6')">
+                    <img src="../createSquad/icons/new.png" class="squadImg"></img>
+                </div>
+            </div>
+            
+        </div>
+        <!-- modal (popup) page to hold squad selection menu -->
+			<div id="squadModal" class="modal">
+				<div id="sM-content" class="modal-content">
+                    <span class="closeSpan" onclick="CloseModal()">&times</span>
+                    <div id="searchModal">
+                        <input type="text" id="modalInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name">
+                    </div>
+				</div>
+			</div>
+
+        
+            
+        <div id="mainContainer" class="mainContainer">
+        <div id="searchDiv">
+            <input type="text" id="myInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name">
+        </div>
+        <section id="mainContent" class="mainContent">
+        </section>
+        </div>
         
        <script src="main.js"></script>
     </body>

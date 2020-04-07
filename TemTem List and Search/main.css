@@ -3,19 +3,136 @@
     margin: 0;
     
 }
-.topNavBar
-{
-    height: 15vh;
+#navBar{
+    background-color: aqua;
+    height: 10vh;
+    min-height: 48px;
     width: 100%;
-    background-color: aquamarine;
+    position: fixed;                                        /*make the position fixed in view*/
+    top: 0;                                                 /*make the position top of view*/        
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 2px;
+    /*box-shadow: 0px 5px 8px rgba(0,0,0,0.4);*/
 }
-.mainContainer
-{
-    margin: auto;
-    width: 100%;
-    background-color: cadetblue;
-    min-height: 85vh;
+
+.navButton{
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 2vw;
+    font-weight: bold;
+    text-shadow: -1.5px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: tomato;
+}
+#navGrid{
+    width: 50%;
+    height: inherit;
+    min-height: inherit;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#expander{
+    padding-top: 1.5%;
+    margin-left: 10px;
+    margin-right: 10%;
+    max-width: 6%;
+    min-width: 36px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#squadCard{
     
+    position: fixed;
+    top : 0;
+    left : 95%;
+    width: 50%;
+    height: 10vh;
+    min-height: inherit;
+    background-color: cadetblue;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 0;
+    border-left-width: 2px;
+    box-shadow: -2px 0px 12px rgba(0,0,0,0.4);
+
+    animation-play-state: running;
+    animation-fill-mode: both;
+}
+.expand{
+    animation-name: expandOut;
+    animation-duration: 1s;
+}
+.collapse{
+    animation-name: collapseIn;
+    animation-duration: 3s;
+}
+@keyframes expandOut{
+ from {left: 95%;}
+ to{left: 60%;}
+}
+@keyframes collapseIn{
+    from{left: 60%;}
+    to{left:95%;}
+}
+#rosterGrid{
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 60%;
+}
+.squadImg{
+    max-width: 42px;
+    max-height: 42px;
+    border-radius: 12px;
+    border-width: 1px;
+    border-style: solid; 
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 60.5%;
+    top: 10vh;
+    width: 39.5%; /* Full width */
+    height: 80%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.modal-content{
+    background-color: rgb(100,112,112);
+    margin-top: 8%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 8%;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 90%; 
+    min-height: 80%;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+
+}
+.closeSpan{
+    color: rgb(255, 255, 255);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#mainContainer
+{
+    margin-top: 10vh;                                       /*lower the maincontent by height of navBar*/
+    background-color: aquamarine;
+    width: 100%;
+    min-height: 150vh;
 }
 .mainContent
 {
@@ -23,6 +140,7 @@
     flex-wrap: wrap;
     width: 71%;
     margin: auto;
+    padding-top: 5vh;
     flex-direction: row;
 }
 
@@ -47,13 +165,39 @@
     margin: 4px; 
     text-align: center;
 }
-.myInput {
+#searchDiv{
+    position: fixed;
+    top: 10vh;
+    margin-top: 1px;
+    width: 100%;
+    height: 30px;
+}
+#myInput {
   background-image: url('/css/searchicon.png');
   background-position: 10px 12px;
   background-repeat: no-repeat;
-  width: auto;
   font-size: 16px;
-  padding: 12px 20px 12px 40px;
+  /* padding: 12px 20px 12px 40px; */
   border: 1px solid #ddd;
   margin-bottom: 12px;
+  width: 100vw;
+  height: 30px;
+}
+#searchModal{
+    position: fixed;
+    top: 11vh;
+    margin-top: 1px;
+    width: 80%;
+    height: 30px;
+}
+#modalInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  /* padding: 12px 20px 12px 40px; */
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  height: 30px;
+  width: 43%;
 }
