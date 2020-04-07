@@ -55,6 +55,7 @@
 }
 .imgCard:hover{
     background-color: rgba(0,0,0,0.60);
+    cursor: pointer;
 }
 .temName
 {

@@ -29,7 +29,7 @@ function TemCallResult(input)
 
     input.map((item, index ) => 
     {
-        let img = '<div id="'+item.name.toUpperCase()+'" class="imgCard">' + CreateImg(item.wikiPortraitUrlLarge, index, item.name, item.types) + '</div>';
+        let img = '<div id="'+item.name.toUpperCase()+'" class="imgCard" '+'onclick=clickEvent('+item.name.toUpperCase()+')>' + CreateImg(item.wikiPortraitUrlLarge, index, item.name, item.types) + '</div>';
         let nme = CreateName(index, item.name);
         let tpe = CreateType(index, item.types);
         images.push(img);
@@ -112,4 +112,8 @@ function searchHide(){
     $("#AMPHATYR").hide();
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
+}
+
+function clickEvent(eventName){
+    console.log(eventName);
 }
