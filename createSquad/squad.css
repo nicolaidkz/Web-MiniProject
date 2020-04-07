@@ -6,7 +6,7 @@ margin: 0;
 
 #navBar{
     background-color: aqua;
-    height: 12vh;
+    height: 10vh;
     min-height: 48px;
     width: 100%;
     position: fixed;                                        /*make the position fixed in view*/
@@ -25,7 +25,7 @@ margin: 0;
     grid-template-columns: 1fr 1fr 1fr;
 }
 #expander{
-    padding-top: 2%;
+    padding-top: 1.5%;
     margin-left: 10px;
     margin-right: 10%;
     max-width: 6%;
@@ -85,7 +85,7 @@ margin: 0;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 60.5%;
-    top: 12vh;
+    top: 10vh;
     width: 39.5%; /* Full width */
     height: 80%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -96,7 +96,10 @@ margin: 0;
 
 .modal-content{
     background-color: rgb(100,112,112);
-    margin: 10% auto; /* 10% from the top and centered */
+    margin-top: 8%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 8%;
     padding: 2%;
     border: 1px solid #888;
     width: 90%; 
@@ -110,6 +113,7 @@ margin: 0;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .navButton{
@@ -125,7 +129,7 @@ margin: 0;
 
 #mainContent
 {
-    margin-top: 12vh;                                       /*lower the maincontent by height of navBar*/
+    margin-top: 10vh;                                       /*lower the maincontent by height of navBar*/
     background-color: aquamarine;
     width: 100%;
     min-height: 150vh;
