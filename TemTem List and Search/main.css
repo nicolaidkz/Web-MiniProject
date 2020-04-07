@@ -5,15 +5,16 @@
 }
 .topNavBar
 {
+    align-content: center;
     height: 15vh;
     width: 100%;
-    background-color: aquamarine;
+    background-color: lightslategrey;
 }
 .mainContainer
 {
     margin: auto;
     width: 100%;
-    background-color: cadetblue;
+    background-color: #414F56;
     min-height: 85vh;
     
 }
@@ -30,7 +31,10 @@
 {
     width: 128px;
     height : 128px;
+    margin: 7px;
     border-radius: 25%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #414F56;
 }
 
 .imgCard
@@ -38,22 +42,176 @@
     height: auto;
     margin: 4px;
     display: inline-block;
-    border-radius: 25%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10%;
     vertical-align: text-bottom;
+    background-color: rgba(0,0,0,0.35);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 .temName
 {
+    color: aliceblue;
+    font-weight: bold;
     margin: 4px; 
     text-align: center;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.51);
+    
 }
-.myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: auto;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
+.temType
+{
+    color: aliceblue;
+    font-size: 1.5vh;
+    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.51);
+    margin-bottom: 5px;
+}
+.mySearchBar {
+    color: aliceblue;
+    margin-bottom: 1vh;
+    color: aliceblue;
+    height: auto;
+    width: auto;
+    background-color: rgba(0,0,0,0.35);
+    border-color: transparent;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.mySearch {
+    vertical-align: middle;
+    color: aliceblue;
+    height: 3vh;
+    width: 8vw;
+    background-color: transparent;
+    border-color: transparent;
+}
+.mySearch:hover {
+    color: aliceblue;
+    height: 3vh;
+    width: 8vw;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: #414F56;
+}
+.neutral
+{
+    font-weight: bolder;
+    color:#e6f7f7;
+}
+.fire
+{
+    font-weight: bolder;
+    color:#e85c4e;
+}
+.water
+{
+    font-weight: bolder;
+    color:#45cbff;
+}
+.nature
+{
+    font-weight: bolder;
+    color:#adde77;
+}
+.electric
+{
+    font-weight: bolder;
+    color:#ffe274;
+}
+.earth
+{
+    font-weight: bolder;
+    color:#ba795c;
+}
+.mental
+{
+    font-weight: bolder;
+    color:#c369a3;
+}
+.wind
+{
+    font-weight: bolder;
+    color:#08fab3;
+}
+.digital
+{
+    font-weight: bolder;
+    color:#a4c0c1;
+}
+.melee
+{
+    font-weight: bolder;
+    color:#fc9361;
+}
+.crystal
+{
+    font-weight: bolder;
+    color:#eb4a68;
+}
+.toxic
+{
+    font-weight: bolder;
+    color:#5c565c;
+}
+.image
+{
+    vertical-align: -2px;
+    height: 15px;
+    width: 15px;
+}
+.select {
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    width:10%;
+}    .select select {
+        font-family: 'Arial';
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+        padding: 10px 15px;
+        outline: 0;
+        border: 0px solid #000000;
+        border-radius: 0px;
+        background: transparent;
+        color: aliceblue;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+        .select select::-ms-expand {
+            display: none;
+        }
+        .select select:hover,
+        .select select:focus {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+            background-color: #414F56;
+        }
+        .select select:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+.select_arrow {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0px 5px;
+    border-color: aliceblue transparent transparent transparent;
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+    border-top-color: #000000;
+}
+.select select:disabled ~ .select_arrow {
+    border-top-color: #cccccc;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: aliceblue;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: aliceblue;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: aliceblue;
 }
