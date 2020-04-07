@@ -1,0 +1,59 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+.topNavBar
+{
+    height: 15vh;
+    width: 100%;
+    background-color: aquamarine;
+}
+.mainContainer
+{
+    margin: auto;
+    width: 100%;
+    background-color: cadetblue;
+    min-height: 85vh;
+    
+}
+.mainContent
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 71%;
+    margin: auto;
+    flex-direction: row;
+}
+
+.smallImg
+{
+    width: 128px;
+    height : 128px;
+    border-radius: 25%;
+}
+
+.imgCard
+{
+    height: auto;
+    margin: 4px;
+    display: inline-block;
+    border-radius: 25%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    vertical-align: text-bottom;
+}
+.temName
+{
+    margin: 4px; 
+    text-align: center;
+}
+.myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: auto;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
