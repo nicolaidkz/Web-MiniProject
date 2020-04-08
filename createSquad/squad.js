@@ -1,5 +1,5 @@
 let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
-var navButtonRef = ["squad.html", "/TemTem List and Search/main.html", ""];                           // button reference strings
+var navButtonRef = ["squad.html", "../TemTem List and Search/main.html", ""];                           // button reference strings
 let $squadCard = $("#squadCard");
 let $sModal = $("#squadModal");
 onload = function()
