@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel='icon' href='typeimg/favicon.ico' type='image/x-icon'/ >
         <title>TemComp | TemTem Team Composition</title>
         <link rel="stylesheet" href="main.css">
         
@@ -8,8 +9,7 @@
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">  
-        </script>
-        
+        </script>        
     </head>
 
     <body>
@@ -58,16 +58,32 @@
 			</div>
 
         
-            
         <div id="mainContainer" class="mainContainer">
-        <div id="searchDiv">
-            <input type="text" id="myInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name">
-        </div>
-        <section id="mainContent" class="mainContent">
-        </section>
-        </div>
-        
+            <center>
+                <form method="get" class="mySearchBar">
+                    <input class = "mySearch" type="text" id="myInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name" autocomplete="off">
+                    <div class= select>
+                        <select name="dropdown" id="myType" onchange="searchHide()">
+                                <option value="Type" selected>Any Type</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Fire">Fire</option>
+                                <option value="Water">Water</option>
+                                <option value="Nature">Nature</option>
+                                <option value="Electric">Electric</option>
+                                <option value="Earth">Earth</option>
+                                <option value="Mental">Mental</option>
+                                <option value="Wind">Wind</option>
+                                <option value="Digital">Digital</option>
+                                <option value="Melee">Melee</option>
+                                <option value="Crystal">Crystal</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                </form>
+            </center>
+            <section id="mainContent" class="mainContent">
+            </section>
+        </div>   
        <script src="main.js"></script>
     </body>
-
 </html>
