@@ -3,18 +3,146 @@
     margin: 0;
     font-family: 'Rubik', sans-serif;   
 }
+.title{
+    align-content: left;
+    width: 70px;
+    margin: 10px;
+    display: inline-block;
+    
+}
+.logoContainer{
+    width: auto;
+    display: inline-block;
+    float: left;
+}
+.navButton{
+    margin-left: 90px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-decoration: none;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: -1.5px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: aliceblue;
+}
+#navGrid{
+    width: 50%;
+    height: inherit;
+    min-height: inherit;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#expander{
+    margin-top: 1.5%;
+    margin-left: 1vw;
+    width: 65px;
+    cursor: pointer;
+    display: inline-block;
+}
+#expander:hover{
+    border-radius: 100%;
+    background-color: rgba(0,0,0,0.20);
+}
+
+#squadCard{
+    position: fixed;
+    top : 0;
+    left : 95%;
+    width: 50%;
+    height: 92px;
+    background-color: rgba(60,70,75,1);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 0;
+    border-left-width: 2px;
+    box-shadow: -2px 0px 12px rgba(0,0,0,0.4);
+
+    animation-play-state: running;
+    animation-fill-mode: both;
+}
+.expand{
+    animation-name: expandOut;
+    animation-duration: 1s;
+}
+.collapse{
+    animation-name: collapseIn;
+    animation-duration: 3s;
+}
+@keyframes expandOut{
+ from {left: 95%;}
+ to{left: 60%;}
+}
+@keyframes collapseIn{
+    from{left: 60%;}
+    to{left:95%;}
+}
+#rosterGrid{
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.squadImg{
+    width: 5vw;
+    max-width: 50px;
+    margin-left: 2vw;
+}
+.squadImg:hover{
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: rgba(0,0,0,0.20);
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 60.5%;
+    top: 92px;
+    width: 39.5%; /* Full width */
+    height: 80%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.modal-content{
+    margin-top: 8%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 8%;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 90%; 
+    min-height: 80%;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+
+}
+.closeSpan{
+    color: rgb(255, 255, 255);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .topNavBar
 {
     align-content: center;
-    height: auto;
+    height: 92px;
     width: 100%;
     background-color: lightslategrey;
+    position: fixed;
+    top: 0;
 }
 .mainContainer
 {
     margin: auto;
     background: linear-gradient(90deg, rgba(47,67,78,1) 0%, rgba(65,79,86,1) 50%, rgba(47,67,78,1) 100%);
-    min-height: 85vh; 
+    min-height: 85vh;
+    margin-top: 92px;
 }
 .mainContent
 {
@@ -25,6 +153,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    padding-top: 40px;
 }
 .smallImg
 {
@@ -74,6 +203,9 @@
     margin-bottom: 10px;
     background-color: rgba(0,0,0,0.35);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.20);
+    position: fixed;
+    top: 92px;
+    width: 100%;
 }
 .mySearch {
     color: aliceblue;

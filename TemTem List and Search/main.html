@@ -14,8 +14,50 @@
 
     <body>
         <div id="topNavBar" class="topNavBar">
-            <center><img class="title" src="typeimg/TemCompBadge.png"></center>
+            <div class="logoContainer">
+            <img class="title" src="typeimg/TemCompBadge.png">
+            </div>
+            <div id="navGrid">
+				<a id="search">SEARCH</a>
+				<a id="comp">COMPARE</a>
+                <a id="comp">LOGIN</a>
+            </div>
         </div>
+        
+                <div id="squadCard" class="collapse">
+            <img id="expander" onclick='ToggleSquadCard()' src="typeimg/user.png"></img>
+            <div id="rosterGrid">
+                <div id="t1" onclick="ToggleModal('t1')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+                <div id="t2" onclick="ToggleModal('t2')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+                <div id="t3" onclick="ToggleModal('t3')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+                <div id="t4" onclick="ToggleModal('t4')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+                <div id="t5" onclick="ToggleModal('t5')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+                <div id="t6" onclick="ToggleModal('t6')">
+                    <img src="typeimg/plus.png" class="squadImg"></img>
+                </div>
+            </div>
+            
+        </div>
+
+<!-- modal (popup) page to hold squad selection menu -->
+			<div id="squadModal" class="modal">
+				<div id="sM-content" class="modal-content">
+                    <span class="closeSpan" onclick="CloseModal()">&times</span>
+                    <div id="searchModal">
+                        <input type="text" id="modalInput" onkeyup="searchHide()" placeholder="Search for names.." title="Type in a name">
+                    </div>
+				</div>
+			</div>
         
         <div id="mainContainer" class="mainContainer">
             <center>
