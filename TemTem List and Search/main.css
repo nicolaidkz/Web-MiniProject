@@ -17,7 +17,6 @@
 .mainContainer
 {
     margin: auto;
-    width: 100%;
     background: linear-gradient(90deg, rgba(47,67,78,1) 0%, rgba(65,79,86,1) 50%, rgba(47,67,78,1) 100%);
     min-height: 85vh;
     
@@ -26,9 +25,11 @@
 {
     display: flex;
     flex-wrap: wrap;
-    width: 71%;
+    width: 70%;
     margin: auto;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .smallImg
