@@ -79,7 +79,7 @@ function TemCallResult(input)
         images.push(img);
         temNames.push(nme);
         temTypes.push(tpe);
-        let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+')>' + CreateImg(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
+        let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="modalResult")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
         images2.push(img2);
     })
 
@@ -113,11 +113,12 @@ function TemCallResult(input)
 }
 
 // function displaying an image from a url
-function CreateImg(url, index, name)
+function CreateImgNoType(url, index, name)
 {
-    let img = '<img id="mTem'+index+'img" class="smallImg" src="' + url + '" alt="' + url + '" title="' + name + '" >';
-    let names = '<p id="mTem'+index+'name" class="temName">' +name + "</p>";
-    return img + names;
+    let img = '<img id="mTem'+index+'img" class="smallImgModal" src="' + url + '" alt="' + url + '" title="' + name + '" >';
+    let names = '<p id="mTem'+index+'name" class="temNameModal">' +name + "</p>";
+    let but = '<img id="buttonFor' + index + '" src="typeimg/plus.png" class="modalSelectButton">' + '</img>';
+    return img + names + but;
 }
 
 function CreateImg(url, index, name, types)
@@ -172,6 +173,17 @@ function searchHideModal(){
     input = document.getElementById("modalInput");
     filter = input.value.toUpperCase();
     // add all the temtem images to the modal and hide/show here
+
+    for(i = 0; i < temNames.length; i++)
+    {
+        let a = temNames[i];
+        if(a.indexOf(filter) > -1)
+        {
+            $("#" + a + "modal").show();
+        }
+        else $("#" + a + "modal").hide();
+
+    }
 }
 
 function clickEvent(eventName){
