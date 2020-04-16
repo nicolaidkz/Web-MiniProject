@@ -4,6 +4,7 @@ let $navButtons = $("#navGrid").children("a");                              // g
 let $squadCard = $("#squadCard");
 var navButtonRef = ["main.html", ""];
 let $sModal = $("#squadModal");
+let $modalResult = $("#resultList");
 
 MakeTemCall();                          // make a TemCall to API
 
@@ -69,7 +70,7 @@ function ToggleModal(id)
 function TemCallResult(input)
 {
     var images = [];
-
+    var images2 = [];
     input.map((item, index ) => 
     {
         let img = '<div id="'+item.name.toUpperCase()+'" class="imgCard" '+'onclick=clickEvent('+item.name.toUpperCase()+')>' + CreateImg(item.wikiPortraitUrlLarge, index, item.name, item.types) + '</div>';
@@ -78,10 +79,12 @@ function TemCallResult(input)
         images.push(img);
         temNames.push(nme);
         temTypes.push(tpe);
+        let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+')>' + CreateImg(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
+        images2.push(img2);
     })
 
     $mainContainer.html(images);
-    
+    $modalResult.html(images2);
     // exhange comma for | in types and color types
     
     for (i = 0; i < temNames.length; i++) {
@@ -110,6 +113,13 @@ function TemCallResult(input)
 }
 
 // function displaying an image from a url
+function CreateImg(url, index, name)
+{
+    let img = '<img id="mTem'+index+'img" class="smallImg" src="' + url + '" alt="' + url + '" title="' + name + '" >';
+    let names = '<p id="mTem'+index+'name" class="temName">' +name + "</p>";
+    return img + names;
+}
+
 function CreateImg(url, index, name, types)
 {
     let img = '<img id="tem'+index+'img" class="smallImg" src="' + url + '" alt="' + url + '" title="' + name + '" >';
