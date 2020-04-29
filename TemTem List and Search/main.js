@@ -1,3 +1,4 @@
+jQuery.support.cors = true;
 var $mainContainer = $("#mainContent"); // jquery variable
 $mainContainer.html("");                // set html to nothing
 let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
@@ -9,6 +10,10 @@ let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
 
 MakeTemCall();                          // make a TemCall to API
+//MakeServerCall();
+
+
+makeCorsRequest();
 
 var temNames = [];                      // array to store Temtem names
 var temTypes = [];                      // array to store Temtem types
@@ -43,6 +48,21 @@ function MakeTemCall()
         }
     });
 }
+/*function MakeServerCall()
+{
+    $.ajax(
+    {
+        type: 'POST',
+        url: 'http://localhost/login/login.php',
+        headers: {'Access-Control-Request-Headers' : 'true'},
+        dataType: 'text',
+        
+        success: function(result)
+        {
+            ServerDataFetch();
+        }
+    });
+}*/
 function ToggleSquadCard()
 {
     console.log("clickety");
@@ -134,6 +154,11 @@ function TemCallResult(input)
     $("#AMPHATYR").hide();
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
+}
+
+function ServerDataFetch()
+{
+    alert('Success!');
 }
 
 // function displaying an image from a url
@@ -235,4 +260,52 @@ function enemySearchHideModal(){
 
 function clickEvent(eventName){
     console.log(eventName);
+}
+
+
+
+// Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
+// Helper method to parse the title tag from the response.
+function getTitle(text) {
+  return text.match('<title>(.*)?</title>')[1];
+}
+
+// Make the actual CORS request.
+function makeCorsRequest() {
+  // This is a sample server that supports CORS.
+  var url = 'http://localhost/login/login.php';
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    alert('CORS not supported');
+    return;
+  }
+
+  // Response handlers.
+  xhr.onload = function() {
+    //var title = getTitle(text);
+    alert('Response from CORS request to ');
+  };
+
+  xhr.onerror = function() {
+    alert('Woops, there was an error making the request.');
+  };
+
+  xhr.send();
 }
