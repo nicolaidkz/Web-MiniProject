@@ -10,10 +10,10 @@ let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
 
 MakeTemCall();                          // make a TemCall to API
-//MakeServerCall();
+MakeServerCall();
 
 
-makeCorsRequest();
+//makeCorsRequest();
 
 var temNames = [];                      // array to store Temtem names
 var temTypes = [];                      // array to store Temtem types
@@ -48,21 +48,22 @@ function MakeTemCall()
         }
     });
 }
-/*function MakeServerCall()
+function MakeServerCall()
 {
     $.ajax(
     {
         type: 'POST',
-        url: 'http://localhost/login/login.php',
-        headers: {'Access-Control-Request-Headers' : 'true'},
-        dataType: 'text',
+        url: 'http://localhost/login/authen_login.php',
+        dataType: 'json',
+        data : {'user' : 'testuser', 'pass': 'testpass', 'request' : 'temList'},
         
         success: function(result)
         {
-            ServerDataFetch();
+            console.log(typeof result); 
+            ServerDataFetch(result);
         }
     });
-}*/
+}
 function ToggleSquadCard()
 {
     console.log("clickety");
@@ -156,9 +157,12 @@ function TemCallResult(input)
     $("#RAIGNET").hide();
 }
 
-function ServerDataFetch()
+function ServerDataFetch(input)
 {
-    alert('Success!');
+    let test = JSON.parse(input);
+    //console.log(typeof test);
+    console.log(test);
+    alert('Success!' + test[1] );
 }
 
 // function displaying an image from a url
@@ -264,48 +268,48 @@ function clickEvent(eventName){
 
 
 
-// Create the XHR object.
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-    // XHR for Chrome/Firefox/Opera/Safari.
-    xhr.open(method, url, true);
-  } else if (typeof XDomainRequest != "undefined") {
-    // XDomainRequest for IE.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  } else {
-    // CORS not supported.
-    xhr = null;
-  }
-  return xhr;
-}
+// // Create the XHR object.
+// function createCORSRequest(method, url) {
+//   var xhr = new XMLHttpRequest();
+//   if ("withCredentials" in xhr) {
+//     // XHR for Chrome/Firefox/Opera/Safari.
+//     xhr.open(method, url, true);
+//   } else if (typeof XDomainRequest != "undefined") {
+//     // XDomainRequest for IE.
+//     xhr = new XDomainRequest();
+//     xhr.open(method, url);
+//   } else {
+//     // CORS not supported.
+//     xhr = null;
+//   }
+//   return xhr;
+// }
 
-// Helper method to parse the title tag from the response.
-function getTitle(text) {
-  return text.match('<title>(.*)?</title>')[1];
-}
+// // Helper method to parse the title tag from the response.
+// function getTitle(text) {
+//   return text.match('<title>(.*)?</title>')[1];
+// }
 
-// Make the actual CORS request.
-function makeCorsRequest() {
-  // This is a sample server that supports CORS.
-  var url = 'http://localhost/login/login.php';
+// // Make the actual CORS request.
+// function makeCorsRequest() {
+//   // This is a sample server that supports CORS.
+//   var url = 'http://localhost/login/login.php';
 
-  var xhr = createCORSRequest('GET', url);
-  if (!xhr) {
-    alert('CORS not supported');
-    return;
-  }
+//   var xhr = createCORSRequest('GET', url);
+//   if (!xhr) {
+//     alert('CORS not supported');
+//     return;
+//   }
 
-  // Response handlers.
-  xhr.onload = function() {
-    //var title = getTitle(text);
-    alert('Response from CORS request to ');
-  };
+//   // Response handlers.
+//   xhr.onload = function() {
+//     //var title = getTitle(text);
+//     alert('Response from CORS request to ');
+//   };
 
-  xhr.onerror = function() {
-    alert('Woops, there was an error making the request.');
-  };
+//   xhr.onerror = function() {
+//     alert('Woops, there was an error making the request.');
+//   };
 
-  xhr.send();
-}
+//   xhr.send();
+// }
