@@ -242,6 +242,71 @@
     background-color: rgba(0,0,0,0.60);
     cursor: pointer;
 }
+
+/*#region Compare Grid*/
+.compareGrid{
+    margin-top: 28px;
+    display: grid;
+    grid-template-areas: 
+    '. . . . . . . . . . . .'
+    '. . e1 e1 . . . . e2 e2 . .'
+    '. . e1 e1 . . . . e2 e2 . .'
+    '. . e1G1 . . . . . . e2G1 . .'
+    '. . e1G2 . . . . . . e2G2 . .'
+    '. . g1G1 h3t h3t h3t h1lt h2t h2t g2G1 . .'
+    '. . g1G2 . . g12 g12 . . g2G2 . .'
+    '. g1 g1 . . g12 g12 . . g2 g2 .'
+    '. g1 g1 . . g12 g12 . . g2 g2 .'
+    '. g1 g1 . . . . . . g2 g2 .'
+    '. . . . . . . . . . . .'
+    '. . . . . . . . . . . .';
+
+}
+#enemy1G{ grid-area: e1; background-color: #e85c4e;}
+#enemy2G{ grid-area: e2; background-color: #e85c4e;}
+#e1G1{ grid-area: e1G1;}
+#e1G2{ grid-area: e1G2;}
+#e2G1{ grid-area: e2G1;}
+#e2G2{ grid-area: e2G2;}
+#g1G1{ grid-area: g1G1;}
+#g1G2{ grid-area: g1G2;}
+#g2G1{ grid-area: g2G1;}
+#g2G2{ grid-area: g2G2;}
+#h3t{ grid-area: h3t;}
+#h1lt{ grid-area: h1lt;}
+#h2t{ grid-area: h2t;}
+#good1G{ grid-area: g1; background-color: #e85c4e;}
+#good2G{ grid-area: g2; background-color: #e85c4e;}
+#good12G{ grid-area: g12; background-color: #e85c4e;}
+
+.lR{
+    border-right: 4px solid; 
+}
+.lRT{
+    border-right: 4px solid;
+    border-top: 4px solid;
+}
+.lL{
+    border-left: 4px solid; 
+}
+.lLB{
+    border-left: 4px solid;
+    border-bottom: 4px solid; 
+}
+.lLT{
+    border-left: 4px solid;
+    border-top: 4px solid;
+}
+.lT{
+    border-top: 4px solid;
+}
+
+.cG{
+    min-width: 50px;
+    min-height: 100px;
+}
+/*#endregion */
+
 .temName
 {
     color: aliceblue;
