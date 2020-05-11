@@ -22,6 +22,9 @@ MakeTemCall();                          // make a TemCall to API
 
 var temNames = [];                      // array to store Temtem names
 var temTypes = [];                      // array to store Temtem types
+var temWeakness = [];
+
+MakeTemWeakCall();
 
 onload = function()
 {
@@ -53,6 +56,21 @@ function MakeTemCall()
         }
     });
 }
+function MakeTemWeakCall()
+{
+    $.ajax(
+    {
+        type: 'GET',
+        url: 'https://temtem-api.mael.tech/api/weaknesses',
+        dataType: 'json',
+
+        success: function(result)
+        {
+            TemCallWeakResult(result);
+        }
+    });
+}
+function MakeServerCall()
 function MakeServerCall(url,  dataField)
 {
     $.ajax(
@@ -197,6 +215,13 @@ function TemCallResult(input)
     $("#AMPHATYR").hide();
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
+    
+    temWeaknessCalc("Platox");
+}
+
+function TemCallWeakResult(input)
+{             
+        temWeakness.push(input);
 }
 
 function ServerDataFetch(input)
@@ -345,6 +370,9 @@ function CreateUserBut()
     MakeServerCall('createUser', dataField);
 }
 
+var weakAgainst = [];
+var strongAgainst = [];
+var neutralAgainst = [];
 function LoginUserBut()
 {
     username = document.getElementById("luser").value;
@@ -354,3 +382,143 @@ function LoginUserBut()
     MakeServerCall('temListFetch', dataField);
 }
 
+function temWeaknessCalc(temName){
+    console.log(temName.toUpperCase());
+    var weaknessArray1 = [];
+    var weaknessArray2 = [];
+    var masterArray = [];
+    for (i = 0; i < temNames.length; i++)      
+    {
+        if (temName.toUpperCase() == temNames[i])
+        {
+            if (temTypes[i].length = 1){
+                if (temTypes[i][0] == "Crystal"){
+                    weaknessArray1 = temWeakness[0].Crystal;
+                }
+                else if (temTypes[i][0] == "Digital"){
+                    weaknessArray1 = temWeakness[0].Digital;
+                }
+                else if (temTypes[i][0] == "Earth"){
+                    weaknessArray1 = temWeakness[0].Earth;
+                }
+                else if (temTypes[i][0] == "Electric"){
+                    weaknessArray1 = temWeakness[0].Electric;
+                }
+                else if (temTypes[i][0] == "Fire"){
+                    weaknessArray1 = temWeakness[0].Fire;
+                }
+                else if (temTypes[i][0] == "Melee"){
+                    weaknessArray1 = temWeakness[0].Melee;
+                }
+                else if (temTypes[i][0] == "Mental"){
+                    weaknessArray1 = temWeakness[0].Mental;
+                }
+                else if (temTypes[i][0] == "Nature"){
+                    weaknessArray1 = temWeakness[0].Nature;
+                }
+                else if (temTypes[i][0] == "Neutral"){
+                    weaknessArray1 = temWeakness[0].Neutral;
+                }
+                else if (temTypes[i][0] == "Toxic"){
+                    weaknessArray1 = temWeakness[0].Toxic;
+                }
+                else if (temTypes[i][0] == "Water"){
+                    weaknessArray1 = temWeakness[0].Water;
+                }
+                else if (temTypes[i][0] == "Wind"){
+                    weaknessArray1 = temWeakness[0].Wind;
+                }
+                
+                masterArray.Crystal = weaknessArray1.Crystal;
+                masterArray.Digital = weaknessArray1.Digital;
+                masterArray.Earth = weaknessArray1.Earth;
+                masterArray.Electric = weaknessArray1.Electric;
+                masterArray.Fire = weaknessArray1.Fire;
+                masterArray.Melee = weaknessArray1.Melee;
+                masterArray.Mental = weaknessArray1.Mental;
+                masterArray.Nature = weaknessArray1.Nature;
+                masterArray.Neutral = weaknessArray1.Neutral;
+                masterArray.Toxic = weaknessArray1.Toxic;
+                masterArray.Water = weaknessArray1.Water;
+                masterArray.Wind = weaknessArray1.Wind;
+                console.log(masterArray);
+            }
+            
+            if (temTypes[i].length = 2)
+            {
+                if (temTypes[i][1] == "Crystal"){
+                    weaknessArray2 = temWeakness[0].Crystal;
+                }
+                else if (temTypes[i][1] == "Digital"){
+                    weaknessArray2 = temWeakness[0].Digital;
+                }
+                else if (temTypes[i][1] == "Earth"){
+                    weaknessArray2 = temWeakness[0].Earth;
+                }
+                else if (temTypes[i][1] == "Electric"){
+                    weaknessArray2 = temWeakness[0].Electric;
+                }
+                else if (temTypes[i][1] == "Fire"){
+                    weaknessArray2 = temWeakness[0].Fire;
+                }
+                else if (temTypes[i][1] == "Melee"){
+                    weaknessArray2 = temWeakness[0].Melee;
+                }
+                else if (temTypes[i][1] == "Mental"){
+                    weaknessArray2 = temWeakness[0].Mental;
+                }
+                else if (temTypes[i][1] == "Nature"){
+                    weaknessArray2 = temWeakness[0].Nature;
+                }
+                else if (temTypes[i][1] == "Neutral"){
+                    weaknessArray2 = temWeakness[0].Neutral;
+                }
+                else if (temTypes[i][1] == "Toxic"){
+                    weaknessArray2 = temWeakness[0].Toxic;
+                }
+                else if (temTypes[i][1] == "Water"){
+                    weaknessArray2 = temWeakness[0].Water;
+                }
+                else if (temTypes[i][1] == "Wind"){
+                    weaknessArray2 = temWeakness[0].Wind;
+                }
+                
+                if ( weaknessArray1.length == 2){
+                    masterArray.Crystal = weaknessArray1.Crystal * weaknessArray2.Crystal;
+                    masterArray.Digital = weaknessArray1.Digital * weaknessArray2.Digital;
+                    masterArray.Earth = weaknessArray1.Earth * weaknessArray2.Earth;
+                    masterArray.Electric = weaknessArray1.Electric * weaknessArray2.Electric;
+                    masterArray.Fire = weaknessArray1.Fire * weaknessArray2.Fire;
+                    masterArray.Melee = weaknessArray1.Melee * weaknessArray2.Melee;
+                    masterArray.Mental = weaknessArray1.Mental * weaknessArray2.Mental;
+                    masterArray.Nature = weaknessArray1.Nature * weaknessArray2.Nature;
+                    masterArray.Neutral = weaknessArray1.Neutral * weaknessArray2.Neutral;
+                    masterArray.Toxic = weaknessArray1.Toxic * weaknessArray2.Toxic;
+                    masterArray.Water = weaknessArray1.Water * weaknessArray2.Water;
+                    masterArray.Wind = weaknessArray1.Wind * weaknessArray2.Wind;
+                }
+            }    
+            
+            var j = 0;
+            var types = ["Crystal", "Digital", "Earth", "Electric", "Fire", "Melee", "Mental", "Nature", "Neutral", "Toxic", "Water", "Wind"];
+            console.log(types);
+            for( var key in masterArray ) {
+                var value = masterArray[key];
+                if (value > 1){
+                    strongAgainst.push(types[j]);
+                }
+                if (value == 1){
+                    neutralAgainst.push(types[j]);
+                }
+                if (value < 1){
+                    weakAgainst.push(types[j]);
+                }
+                j++;
+            }
+        }
+    }
+    
+    console.log(temName + " is weak against "+ weakAgainst);
+    console.log(temName + " is neutral against "+ neutralAgainst);
+    console.log(temName + " is strong against "+ strongAgainst);
+}
