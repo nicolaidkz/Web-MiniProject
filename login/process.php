@@ -1,10 +1,8 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     //Get values passed from form in login.php
     $username = $_POST['user'];
     $password = $_POST['pass'];
-    $request = $_Post['request'];
-
-    header("Access-Control-Allow-Origin: *");
 
     // to prevent mysql injection
     //$username = stripcslashes($username);
@@ -21,8 +19,7 @@
         or die("Failed to query database ".mysql_error());
     $row = mysql_fetch_array($result);
     if ($row['username'] == $username && $row['password'] == $password ){
-        //echo "Login success!!! Welcome ".$row['username'];
-        echo "your temlist is: " .$row['temList'];
+        echo "Login success!!! Welcome ".$row['username'];
     } else {
         echo "Failed to login!";
     }

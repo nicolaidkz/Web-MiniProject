@@ -12,6 +12,13 @@ else
     </p>';
 
 
+if (isset($_POST['user']) and isset($_POST['pass']))
+{
+    // Assigning POST values to variables.
+    $inputUsername = $_POST['user'];
+    $inputPassword = $_POST['pass'];
+}
+
 $sql = "CREATE TABLE users (
 id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(100) NOT NULL,
@@ -26,7 +33,7 @@ if(mysqli_query($connect, $sql)){
 }
 
 $sql = "INSERT INTO users (username, password)
-VALUES ('admin', 'admin')";
+VALUES ('$inputUsername', '$inputPassword')";
 
 if(mysqli_query($connect, $sql)){
     $last_id = mysqli_insert_id($connect);

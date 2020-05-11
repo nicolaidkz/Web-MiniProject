@@ -15,7 +15,7 @@
         // Assigning POST values to variables.
         $username = $_POST['user'];
         $password = $_POST['pass'];
-        $request = $_POST['request'];
+        //$request = $_POST['request'];
 
         // CHECK FOR THE RECORD FROM TABLE
         $query = "SELECT * FROM `users` WHERE username='$username' and Password='$password'";
@@ -26,7 +26,8 @@
         
         $row = mysqli_fetch_array($result);
         if ($row['username'] == $username && $row['password'] == $password ){
-            echo json_encode($row['temList']);
+            //echo json_encode($row['temList']);
+            echo "welcome " . $username;
         } else {
             echo "Failed to login!";
         }

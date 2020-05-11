@@ -298,6 +298,7 @@ function LoginUserBut()
     pass = document.getElementById("lpass").value;
     dataField = {user : username , pass : pass };
     MakeServerCall('authen_login', dataField);
+    MakeServerCall('temListFetch', dataField);
 }
 
 // // Create the XHR object.
