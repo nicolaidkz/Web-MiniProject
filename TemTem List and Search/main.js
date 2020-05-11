@@ -8,7 +8,12 @@ let $sModal = $("#squadModal");
 let $eModal = $("#enemyModal");
 let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
-
+let $1gList = $("#E1Gimg");
+let $1gBox = $("#enemy1G");
+let $2gBox = $("#enemy2G");
+let $good1 = $("#good1Content");
+let $good12 = $("#good12Content");
+let $good2 = $("#good2Content");
 MakeTemCall();                          // make a TemCall to API
 //MakeServerCall();
 
@@ -108,6 +113,7 @@ function ToggleModal(id)
         console.log(id); // here we know which squad placement is being changed   
     }
 }
+
 function EnemyCloseModal() 
 {
     $eModal.hide();
@@ -125,13 +131,18 @@ function EnemyToggleModal(id)
         console.log(id); // here we know which squad placement is being changed   
     }
 }
-
+var images4 = []; // for showing enemy 1 in compare
+var images5 = []; // for showing enemy 2 in compare
+var images6 = []; // for showing good against enemy 1
+var images7 = []; // for showing good against enemy 2
+var images8 = []; // for showing good against both enemies
 // function receiving data from TemCall (use to process result)
 function TemCallResult(input)
 {
-    var images = [];
-    var images2 = [];
-    var images3 = [];
+    var images = [];    // for showing search
+    var images2 = [];   // for showing squad modal
+    var images3 = [];   // for showing enemy modal
+    
     input.map((item, index ) => 
     {
         let img = '<div id="'+item.name.toUpperCase()+'" class="imgCard" '+'onclick=clickEvent('+item.name.toUpperCase()+')>' + CreateImg(item.wikiPortraitUrlLarge, index, item.name, item.types) + '</div>';
@@ -142,6 +153,15 @@ function TemCallResult(input)
         temTypes.push(tpe);
         let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="modalResult")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
         let img3 = '<div id="'+item.name.toUpperCase()+'enemyModal"'+' class="enemyModalResult") onclick=alert("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 200+index, item.name) + '</div>';
+        let img4 = '<div id="'+item.name.toUpperCase()+'1GList"'+' class="enemyModalResult") onclick=OneGSelect("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400+index, item.name) + '</div>';
+        let img6 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
+        let img7 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
+        let img8 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
+        images8.push(img8);
+        images7.push(img7);
+        images6.push(img6);
+        //images5.push(img5);
+        images4.push(img4);
         images3.push(img3);
         images2.push(img2);
     })
@@ -149,6 +169,8 @@ function TemCallResult(input)
     $mainContainer.html(images);
     $modalResult.html(images2);
     $enemyModalResult.html(images3);
+    $1gList.html(images4);
+    $good1.html(images6);
     // exhange comma for | in types and color types
     console.log(window.location.href);
     if (window.location.href.includes("main.html")){
@@ -282,8 +304,39 @@ function enemySearchHideModal(){
 
     }
 }
+function OneGSearchHide(temName){
+    var filter; 
+    filter = temName.toUpperCase();
+    $1gBox.html(images4);
+    // add all the temtem images to the modal and hide/show here
 
+    for(i = 0; i < temNames.length; i++)
+    {
+        let a = temNames[i];
+        if(a.indexOf(filter) > -1)
+        {
+            $("#" + a + "1GList").show();
+            $("#" + a + "1GList").attr("onclick", "show1GList()");
+        }
+        else {
+            $("#" + a + "1GList").hide();
+            $("#" + a + "1GList").attr("onclick", "OneGSelect("+ temName + ")");
+        }
 
+    }
+}
+function show1GList()
+{
+    console.log("clickety");
+    $1gList.show();
+    // ERROR: E1Gimg DISAPPEARS?!!!
+}
+function OneGSelect(temName)
+{
+    console.log("im here too");
+    $1gList.hide();
+    OneGSearchHide(temName);
+}
 function CreateUserBut()
 {
     username = document.getElementById("cuser").value;
@@ -301,48 +354,3 @@ function LoginUserBut()
     MakeServerCall('temListFetch', dataField);
 }
 
-// // Create the XHR object.
-// function createCORSRequest(method, url) {
-//   var xhr = new XMLHttpRequest();
-//   if ("withCredentials" in xhr) {
-//     // XHR for Chrome/Firefox/Opera/Safari.
-//     xhr.open(method, url, true);
-//   } else if (typeof XDomainRequest != "undefined") {
-//     // XDomainRequest for IE.
-//     xhr = new XDomainRequest();
-//     xhr.open(method, url);
-//   } else {
-//     // CORS not supported.
-//     xhr = null;
-//   }
-//   return xhr;
-// }
-
-// // Helper method to parse the title tag from the response.
-// function getTitle(text) {
-//   return text.match('<title>(.*)?</title>')[1];
-// }
-
-// // Make the actual CORS request.
-// function makeCorsRequest() {
-//   // This is a sample server that supports CORS.
-//   var url = 'http://localhost/login/login.php';
-
-//   var xhr = createCORSRequest('GET', url);
-//   if (!xhr) {
-//     alert('CORS not supported');
-//     return;
-//   }
-
-//   // Response handlers.
-//   xhr.onload = function() {
-//     //var title = getTitle(text);
-//     alert('Response from CORS request to ');
-//   };
-
-//   xhr.onerror = function() {
-//     alert('Woops, there was an error making the request.');
-//   };
-
-//   xhr.send();
-// }

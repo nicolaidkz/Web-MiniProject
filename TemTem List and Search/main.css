@@ -152,6 +152,15 @@
     display: inline-block;
 
 }
+.compareResult{
+    height: 80px;
+    width: 100%;
+}
+.compareList{
+    width : 100%;
+    max-height : 100%;
+    overflow-y: scroll;
+}
 .closeSpan{
     color: rgb(255, 255, 255);
     float: right;
@@ -304,6 +313,7 @@
 .cG{
     min-width: 50px;
     min-height: 100px;
+    max-height: 10%;
 }
 /*#endregion */
 
