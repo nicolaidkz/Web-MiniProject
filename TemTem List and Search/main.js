@@ -54,7 +54,7 @@ function MakeServerCall(url,  dataField)
     {
         type: 'POST',
         url: 'http://localhost/login/'+ url +'.php',
-        dataType: 'json',
+        //dataType: 'json',
         data : dataField,
         //data: { user: "John", pass: "Boston" },
         
