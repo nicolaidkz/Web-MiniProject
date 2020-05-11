@@ -3,14 +3,14 @@ var $mainContainer = $("#mainContent"); // jquery variable
 $mainContainer.html("");                // set html to nothing
 let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
 let $squadCard = $("#squadCard");
-var navButtonRef = ["main.html", "compare.html"];
+var navButtonRef = ["main.html", "compare.html", "login.html"];
 let $sModal = $("#squadModal");
 let $eModal = $("#enemyModal");
 let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
 
 MakeTemCall();                          // make a TemCall to API
-MakeServerCall();
+//MakeServerCall();
 
 
 //makeCorsRequest();
@@ -48,20 +48,40 @@ function MakeTemCall()
         }
     });
 }
-function MakeServerCall()
+function MakeServerCall(url,  dataField)
 {
     $.ajax(
     {
         type: 'POST',
-        url: 'http://localhost/login/authen_login.php',
+        url: 'http://localhost/login/'+ url +'.php',
         dataType: 'json',
-        data : {'user' : 'testuser', 'pass': 'testpass', 'request' : 'temList'},
+        data : dataField,
+        //data: { user: "John", pass: "Boston" },
         
         success: function(result)
         {
             console.log(typeof result); 
             ServerDataFetch(result);
-        }
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            alert(msg);
+        },
     });
 }
 function ToggleSquadCard()
@@ -159,10 +179,11 @@ function TemCallResult(input)
 
 function ServerDataFetch(input)
 {
-    let test = JSON.parse(input);
-    //console.log(typeof test);
-    console.log(test);
-    alert('Success!' + test[1] );
+    // let test = JSON.parse(input);
+    // //console.log(typeof test);
+    // console.log(test);
+    alert('Success!' + input );
+    console.log("successfully logged in or created user..");
 }
 
 // function displaying an image from a url
@@ -262,11 +283,22 @@ function enemySearchHideModal(){
     }
 }
 
-function clickEvent(eventName){
-    console.log(eventName);
+
+function CreateUserBut()
+{
+    username = document.getElementById("cuser").value;
+    pass = document.getElementById("cpass").value;   
+    dataField = {user : username , pass : pass };
+    MakeServerCall('createUser', dataField);
 }
 
-
+function LoginUserBut()
+{
+    username = document.getElementById("luser").value;
+    pass = document.getElementById("lpass").value;
+    dataField = {user : username , pass : pass };
+    MakeServerCall('authen_login', dataField);
+}
 
 // // Create the XHR object.
 // function createCORSRequest(method, url) {
