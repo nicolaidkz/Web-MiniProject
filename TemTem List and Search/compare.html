@@ -85,15 +85,19 @@
                 -->   
                 <div id="compareGrid" class="compareGrid">
                     <div id="enemy1G" class="cG"> 
-                        <img id="select1G" class="title" src="typeimg/TemComp.png" onclick="show1GList()"> 
+                        <div id="E1GList">
+                            <img id="select1G" class="title" src="typeimg/TemComp.png" onclick="showGList(1)">
+                        </div> 
                         <div id="E1Gimg" class="modal"></div>
                     </div>
                         <div id="e1G1" class="lR cG"></div> 
                         <div id="e1G2" class="lR cG"></div> 
 
                     <div id="enemy2G" class="cG"> 
-                        <img id="select2G" class="title" src="typeimg/TemComp.png"> 
-                        <div id="good2GList"></div>
+                        <div id="E2GList">
+                            <img id="select2G" class="title" src="typeimg/TemComp.png" onclick="showGList(2)">
+                        </div> 
+                        <div id="E2Gimg" class="modal"></div>
 
                     </div>
                         <div id="e2G1" class="lL cG"></div> 

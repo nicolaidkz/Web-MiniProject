@@ -9,8 +9,9 @@ let $eModal = $("#enemyModal");
 let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
 let $1gList = $("#E1Gimg");
-let $1gBox = $("#enemy1G");
-let $2gBox = $("#enemy2G");
+let $2gList = $("#E2Gimg");
+let $1gBox = $("#E1GList");
+let $2gBox = $("#E2GList");
 let $good1 = $("#good1Content");
 let $good12 = $("#good12Content");
 let $good2 = $("#good2Content");
@@ -170,14 +171,15 @@ function TemCallResult(input)
         temTypes.push(tpe);
         let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="modalResult")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
         let img3 = '<div id="'+item.name.toUpperCase()+'enemyModal"'+' class="enemyModalResult") onclick=alert("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 200+index, item.name) + '</div>';
-        let img4 = '<div id="'+item.name.toUpperCase()+'1GList"'+' class="enemyModalResult") onclick=OneGSelect("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400+index, item.name) + '</div>';
+        let img4 = '<div id="'+item.name.toUpperCase()+'1GList"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +1+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400+index, item.name) + '</div>';
+        let img5 = '<div id="'+item.name.toUpperCase()+'2GList"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +2+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 500+index, item.name) + '</div>';
         let img6 = '<div id="'+item.name.toUpperCase()+'good1"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
         let img7 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
         let img8 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
         images8.push(img8);
         images7.push(img7);
         images6.push(img6);
-        //images5.push(img5);
+        images5.push(img5);
         images4.push(img4);
         images3.push(img3);
         images2.push(img2);
@@ -187,6 +189,7 @@ function TemCallResult(input)
     $modalResult.html(images2);
     $enemyModalResult.html(images3);
     $1gList.html(images4);
+    $2gList.html(images5);
     // exhange comma for | in types and color types
     console.log(window.location.href);
     if (window.location.href.includes("main.html")){
@@ -325,25 +328,49 @@ function enemySearchHideModal(){
 
     }
 }
-function OneGSearchHide(temName){
+function GSearchHide(temName, id){
     var filter; 
     filter = temName.toUpperCase();
-    $1gBox.html(images4);
-    // add all the temtem images to the modal and hide/show here
-
-    for(i = 0; i < temNames.length; i++)
+    if(id == 1)
     {
-        let a = temNames[i];
-        if(a.indexOf(filter) > -1)
-        {
-            $("#" + a + "1GList").show();
-            $("#" + a + "1GList").attr("onclick", "show1GList()");
-        }
-        else {
-            $("#" + a + "1GList").hide();
-            $("#" + a + "1GList").attr("onclick", "OneGSelect("+ temName + ")");
-        }
+        $1gBox.html(images4);
+        // add all the temtem images to the modal and hide/show here
 
+        for(i = 0; i < temNames.length; i++)
+        {
+            let a = temNames[i];
+            if(a.indexOf(filter) > -1)
+            {
+                $("#" + a + "1GList").show();
+                $("#" + a + "1GList").attr("onclick", "showGList(1)");
+            }
+            else {
+                $("#" + a + "1GList").hide();
+                $("#" + a + "1GList").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
+            }
+
+        }
+    }
+    else if (id == 2)
+    {
+        $2gBox.html(images5);
+        // add all the temtem images to the modal and hide/show here
+
+        for(i = 0; i < temNames.length; i++)
+        {
+            let a = temNames[i];
+            if(a.indexOf(filter) > -1)
+            {
+                $("#" + a + "2GList").show();
+                $("#" + a + "2GList").attr("onclick", "showGList(2)");
+            }
+            else {
+                $("#" + a + "2GList").hide();
+                $("#" + a + "2GList").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
+            }
+
+        }
+    
     }
     temWeaknessCalc(temName);
 }
@@ -389,17 +416,16 @@ function GoodESearchHide(temName){
     $("#VALIARgood1").hide();
     $("#RAIGNETgood1").hide();
 }
-function show1GList()
+function showGList(id)
 {
-    console.log("clickety");
-    $1gList.show();
-    // ERROR: E1Gimg DISAPPEARS?!!!
+    if(id == 1) $1gList.show();
+    else if (id == 2) $2gList.show();   
 }
-function OneGSelect(temName)
+function GSelect(temName, id)
 {
-    console.log("im here too");
-    $1gList.hide();
-    OneGSearchHide(temName);
+    if(id == 1) $1gList.hide(); GSearchHide(temName, id);
+    if(id == 2) $2gList.hide(); GSearchHide(temName, id);   
+    
 }
 function CreateUserBut()
 {
