@@ -83,7 +83,7 @@ function MakeServerCall(url,  dataField)
         
         success: function(result)
         {
-            console.log(typeof result); 
+            //console.log(typeof result); 
             ServerDataFetch(result);
         },
         error: function (jqXHR, exception) {
@@ -109,7 +109,7 @@ function MakeServerCall(url,  dataField)
 }
 function ToggleSquadCard()
 {
-    console.log("clickety");
+    //console.log("clickety");
     if($squadCard.hasClass("expand")) CloseModal();
     $squadCard.toggleClass("expand collapse");
 }
@@ -117,7 +117,7 @@ function ToggleSquadCard()
 function CloseModal() 
 {
     $sModal.hide();
-    console.log("trying to close modal");
+    //console.log("trying to close modal");
 }
 
 function ToggleModal(id)
@@ -128,14 +128,14 @@ function ToggleModal(id)
     }
     else{
         $sModal.slideDown("fast");
-        console.log(id); // here we know which squad placement is being changed   
+        //console.log(id); // here we know which squad placement is being changed   
     }
 }
 
 function EnemyCloseModal() 
 {
     $eModal.hide();
-    console.log("trying to close modal");
+    //console.log("trying to close modal");
 }
 
 function EnemyToggleModal(id)
@@ -146,7 +146,7 @@ function EnemyToggleModal(id)
     }
     else{
         $eModal.slideDown("fast");
-        console.log(id); // here we know which squad placement is being changed   
+        //console.log(id); // here we know which squad placement is being changed   
     }
 }
 var images4 = []; // for showing enemy 1 in compare
@@ -174,8 +174,8 @@ function TemCallResult(input)
         let img4 = '<div id="'+item.name.toUpperCase()+'1GList"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +1+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400+index, item.name) + '</div>';
         let img5 = '<div id="'+item.name.toUpperCase()+'2GList"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +2+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 500+index, item.name) + '</div>';
         let img6 = '<div id="'+item.name.toUpperCase()+'good1"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
-        let img7 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
-        let img8 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
+        let img7 = '<div id="'+item.name.toUpperCase()+'good12"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
+        let img8 = '<div id="'+item.name.toUpperCase()+'good2"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
         images8.push(img8);
         images7.push(img7);
         images6.push(img6);
@@ -350,6 +350,7 @@ function GSearchHide(temName, id){
             }
 
         }
+        temWeaknessCalc(temName, 1);
     }
     else if (id == 2)
     {
@@ -370,52 +371,178 @@ function GSearchHide(temName, id){
             }
 
         }
-    
+    temWeaknessCalc(temName, 2);
     }
-    temWeaknessCalc(temName);
 }
-function GoodESearchHide(temName){
-    $good1.html(images6);
-    var b;
-    for(i = 0; i < temNames.length; i++)
-    {
-        var score = 0;
-        b = temTypes[i];
-        a = temNames[i];
-        $("#" + a + "good1").hide();                    
-        for(j = 0; j < weakAgainst.length; j++){
-            if(typeof weakAgainst[0] !== 'undefined'){
-                if(weakAgainst[j].indexOf(b[0]) > -1)
-                {
-                    $("#" + a + "good1").show();
-                    score = score +2;
+
+var weakAgainst1, weakAgainst2, strongAgainst1, strongAgainst2, neutralAgainst1, neutralAgainst2;
+function GoodESearchHide(temName, id){
+    if (id == 1){
+        weakAgainst1 = weakAgainst;
+        neutralAgainst1 = neutralAgainst;
+        strongAgainst1 = strongAgainst;
+        $good1.html(images6);
+        var b;
+        for(i = 0; i < temNames.length; i++)
+        {
+            var score = 0;
+            b = temTypes[i];
+            a = temNames[i];
+            $("#" + a + "good1").hide();                    
+            for(j = 0; j < weakAgainst.length; j++){
+                if(typeof weakAgainst[0] !== 'undefined'){
+                    if(weakAgainst[j].indexOf(b[0]) > -1)
+                    {
+                        $("#" + a + "good1").show();
+                        score = score +2;
+                    }
+                    if(weakAgainst[j].indexOf(b[1]) > -1)
+                    {
+                        score = score+2;
+                        $("#" + a + "good1").show();
+                    }
                 }
-                if(weakAgainst[j].indexOf(b[1]) > -1)
-                {
-                    score = score+2;
-                    $("#" + a + "good1").show();
-                }
+
             }
-            
+            for(j = 0; j < strongAgainst.length; j++){
+                if(typeof strongAgainst[0] !== 'undefined'){
+                    if(strongAgainst[j].indexOf(b[0]) > -1)
+                    {
+                        $("#" + a + "good1").hide();
+                    }
+                    else if(strongAgainst[j].indexOf(b[1]) > -1)
+                    {
+                        $("#" + a + "good1").hide();
+                    }
+                }
+            }    
         }
-        for(j = 0; j < strongAgainst.length; j++){
-            if(typeof strongAgainst[0] !== 'undefined'){
-                if(strongAgainst[j].indexOf(b[0]) > -1)
-                {
-                    $("#" + a + "good1").hide();
+        $("#AMPLINGgood1").hide();
+        $("#AMPHATYRgood1").hide();
+        $("#VALIARgood1").hide();
+        $("#RAIGNETgood1").hide();
+        calcMidBox();
+    }
+    if (id == 2){
+        weakAgainst2 = weakAgainst;
+        neutralAgainst2 = neutralAgainst;
+        strongAgainst2 = strongAgainst;
+        $good2.html(images8);
+        var b;
+        for(i = 0; i < temNames.length; i++)
+        {
+            var score = 0;
+            b = temTypes[i];
+            a = temNames[i];
+            $("#" + a + "good2").hide();                    
+            for(j = 0; j < weakAgainst.length; j++){
+                
+                
+                
+                if(typeof weakAgainst[0] !== 'undefined'){
+                    if(weakAgainst[j].indexOf(b[0]) > -1)
+                    {
+                        $("#" + a + "good2").show();
+                        score = score +2;
+                    }
+                    if(weakAgainst[j].indexOf(b[1]) > -1)
+                    {
+                        score = score+2;
+                        $("#" + a + "good2").show();
+                    }
                 }
-                else if(strongAgainst[j].indexOf(b[1]) > -1)
-                {
-                    $("#" + a + "good1").hide();
+
+            }
+            for(j = 0; j < strongAgainst.length; j++){
+                if(typeof strongAgainst[0] !== 'undefined'){
+                    if(strongAgainst[j].indexOf(b[0]) > -1)
+                    {
+                        $("#" + a + "good2").hide();
+                    }
+                    else if(strongAgainst[j].indexOf(b[1]) > -1)
+                    {
+                        $("#" + a + "good2").hide();
+                    }
+                }
+            }    
+        }
+        $("#AMPLINGgood2").hide();
+        $("#AMPHATYRgood2").hide();
+        $("#VALIARgood2").hide();
+        $("#RAIGNETgood2").hide();
+    }
+    
+    function calcMidBox(){
+    if (weakAgainst1 != null && weakAgainst2 != null)
+    {
+        $good12.html(images7);
+        for(i = 0; i < temNames.length; i++)
+            {
+                var score = 0;
+                b = temTypes[i];
+                a = temNames[i];
+                $("#" + a + "good12").hide();                    
+                for(j = 0; j < weakAgainst1.length; j++){
+                    if(typeof weakAgainst1[0] !== 'undefined'){
+                        if(weakAgainst1[j].indexOf(b[0]) > -1)
+                        {
+                            $("#" + a + "good12").show();
+                            score = score +2;
+                        }
+                        if(weakAgainst1[j].indexOf(b[1]) > -1)
+                        {
+                            score = score+2;
+                            $("#" + a + "good12").show();
+                        }
+                    }
+                }
+                for(j = 0; j < weakAgainst2.length; j++){
+                    if(typeof weakAgainst2[0] !== 'undefined'){
+                        if(weakAgainst2[j].indexOf(b[0]) > -1)
+                        {
+                            $("#" + a + "good12").show();
+                            score = score +2;
+                        }
+                        if(weakAgainst2[j].indexOf(b[1]) > -1)
+                        {
+                            score = score+2;
+                            $("#" + a + "good12").show();
+                        }
+                    }
+                }
+                for(j = 0; j < strongAgainst1.length; j++){
+                    if(typeof strongAgainst1[0] !== 'undefined'){
+                        if(strongAgainst1[j].indexOf(b[0]) > -1)
+                        {
+                            $("#" + a + "good12").hide();
+                        }
+                        else if(strongAgainst1[j].indexOf(b[1]) > -1)
+                        {
+                            $("#" + a + "good12").hide();
+                        }
+                    }
+                }
+                for(j = 0; j < strongAgainst2.length; j++){
+                    if(typeof strongAgainst2[0] !== 'undefined'){
+                        if(strongAgainst2[j].indexOf(b[0]) > -1)
+                        {
+                            $("#" + a + "good12").hide();
+                        }
+                        else if(strongAgainst2[j].indexOf(b[1]) > -1)
+                        {
+                            $("#" + a + "good12").hide();
+                        }
+                    }
                 }
             }
-        }    
+        }  
     }
-    $("#AMPLINGgood1").hide();
-    $("#AMPHATYRgood1").hide();
-    $("#VALIARgood1").hide();
-    $("#RAIGNETgood1").hide();
+    $("#AMPLINGgood12").hide();
+    $("#AMPHATYRgood12").hide();
+    $("#VALIARgood12").hide();
+    $("#RAIGNETgood12").hide();
 }
+    
 function showGList(id)
 {
     if(id == 1) $1gList.show();
@@ -449,87 +576,115 @@ var weakAgainst = [];
 var strongAgainst = [];
 var neutralAgainst = [];
 
-function temWeaknessCalc(temName){
-    console.log(temName.toUpperCase());
+function temWeaknessCalc(temName, id){
+    //console.log(temName.toUpperCase());
+    //console.log(id);
     var weaknessArray1 = [];
     var weaknessArray2 = [];
     var masterArray = [];
+    weakAgainst = [];
+    strongAgainst = [];
+    neutralAgainst = [];
     for (i = 0; i < temNames.length; i++)      
     {
         if (temName.toUpperCase() == temNames[i])
         {
-                console.log(temTypes[i]);
+                //console.log(temTypes[i]);
                 if (temTypes[i][0] == "Crystal"){
                     weaknessArray1 = temWeakness[0].Crystal;
+                    weaknessArray1.Crystal = 1;
                 }
                 else if (temTypes[i][0] == "Digital"){
                     weaknessArray1 = temWeakness[0].Digital;
+                    weaknessArray1.Digital = 1;
                 }
                 else if (temTypes[i][0] == "Earth"){
                     weaknessArray1 = temWeakness[0].Earth;
+                    weaknessArray1.Earth = 1;
                 }
                 else if (temTypes[i][0] == "Electric"){
                     weaknessArray1 = temWeakness[0].Electric;
+                    weaknessArray1.Electric = 1;
                 }
                 else if (temTypes[i][0] == "Fire"){
                     weaknessArray1 = temWeakness[0].Fire;
+                    weaknessArray1.Fire = 1;
                 }
                 else if (temTypes[i][0] == "Melee"){
                     weaknessArray1 = temWeakness[0].Melee;
+                    weaknessArray1.Melee = 1;
                 }
                 else if (temTypes[i][0] == "Mental"){
                     weaknessArray1 = temWeakness[0].Mental;
+                    weaknessArray1.Mental = 1;
                 }
                 else if (temTypes[i][0] == "Nature"){
                     weaknessArray1 = temWeakness[0].Nature;
+                    weaknessArray1.Nature = 1;
                 }
                 else if (temTypes[i][0] == "Neutral"){
                     weaknessArray1 = temWeakness[0].Neutral;
+                    weaknessArray1.Neutral = 1;
                 }
                 else if (temTypes[i][0] == "Toxic"){
                     weaknessArray1 = temWeakness[0].Toxic;
+                    weaknessArray1.Toxic = 1;
                 }
                 else if (temTypes[i][0] == "Water"){
                     weaknessArray1 = temWeakness[0].Water;
+                    weaknessArray1.Water = 1;
                 }
                 else if (temTypes[i][0] == "Wind"){
                     weaknessArray1 = temWeakness[0].Wind;
+                    weaknessArray1.Wind = 1;
                 }
                 if (temTypes[i][1] == "Crystal"){
                     weaknessArray2 = temWeakness[0].Crystal;
+                    weaknessArray2.Crystal = 1;
                 }
                 else if (temTypes[i][1] == "Digital"){
                     weaknessArray2 = temWeakness[0].Digital;
+                    weaknessArray2.Digital = 1;
                 }
                 else if (temTypes[i][1] == "Earth"){
                     weaknessArray2 = temWeakness[0].Earth;
+                    weaknessArray2.Earth = 1;
                 }
                 else if (temTypes[i][1] == "Electric"){
                     weaknessArray2 = temWeakness[0].Electric;
+                    weaknessArray2.Electric = 1;
                 }
                 else if (temTypes[i][1] == "Fire"){
                     weaknessArray2 = temWeakness[0].Fire;
+                    weaknessArray2.Fire = 1;
                 }
                 else if (temTypes[i][1] == "Melee"){
                     weaknessArray2 = temWeakness[0].Melee;
+                    weaknessArray2.Melee = 1;
                 }
                 else if (temTypes[i][1] == "Mental"){
                     weaknessArray2 = temWeakness[0].Mental;
+                    weaknessArray2.Mental = 1;
                 }
                 else if (temTypes[i][1] == "Nature"){
                     weaknessArray2 = temWeakness[0].Nature;
+                    weaknessArray2.Nature = 1;
                 }
                 else if (temTypes[i][1] == "Neutral"){
                     weaknessArray2 = temWeakness[0].Neutral;
+                    weaknessArray2.Neutral = 1;
                 }
                 else if (temTypes[i][1] == "Toxic"){
                     weaknessArray2 = temWeakness[0].Toxic;
+                    weaknessArray2.Toxic = 1;
                 }
                 else if (temTypes[i][1] == "Water"){
                     weaknessArray2 = temWeakness[0].Water;
+                    weaknessArray2.Water = 1;
                 }
                 else if (temTypes[i][1] == "Wind"){
                     weaknessArray2 = temWeakness[0].Wind;
+                    weaknessArray2.Wind = 1;
                 }
             
             if (weaknessArray2.length == 0){
@@ -563,7 +718,6 @@ function temWeaknessCalc(temName){
             
             var j = 0;
             var types = ["Crystal", "Digital", "Earth", "Electric", "Fire", "Melee", "Mental", "Nature", "Neutral", "Toxic", "Water", "Wind"];
-            console.log(types);
             for( var key in masterArray ) {
                 var value = masterArray[key];
                 if (value > 1){
@@ -580,12 +734,10 @@ function temWeaknessCalc(temName){
         }
     }
     
-    console.log(temName + " is weak against "+ weakAgainst);
-    console.log(temName + " is neutral against "+ neutralAgainst);
-    console.log(temName + " is strong against "+ strongAgainst);
-    console.log(weaknessArray1);
-    console.log(weaknessArray2);
-    console.log(masterArray);
-    
-    GoodESearchHide(temName);
+    //console.log(temName + " is weak against "+ weakAgainst);
+    //console.log(temName + " is neutral against "+ neutralAgainst);
+    //console.log(temName + " is strong against "+ strongAgainst);
+    //console.log(weaknessArray1);
+    //console.log(weaknessArray2);
+    GoodESearchHide(temName, id);
 }
