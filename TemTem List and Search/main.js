@@ -70,7 +70,6 @@ function MakeTemWeakCall()
         }
     });
 }
-function MakeServerCall()
 function MakeServerCall(url,  dataField)
 {
     $.ajax(
@@ -172,7 +171,7 @@ function TemCallResult(input)
         let img2 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="modalResult")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100+index, item.name) + '</div>';
         let img3 = '<div id="'+item.name.toUpperCase()+'enemyModal"'+' class="enemyModalResult") onclick=alert("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 200+index, item.name) + '</div>';
         let img4 = '<div id="'+item.name.toUpperCase()+'1GList"'+' class="enemyModalResult") onclick=OneGSelect("'+item.name+'")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400+index, item.name) + '</div>';
-        let img6 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
+        let img6 = '<div id="'+item.name.toUpperCase()+'good1"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
         let img7 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
         let img8 = '<div id="'+item.name.toUpperCase()+'modal"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
         images8.push(img8);
@@ -188,7 +187,6 @@ function TemCallResult(input)
     $modalResult.html(images2);
     $enemyModalResult.html(images3);
     $1gList.html(images4);
-    $good1.html(images6);
     // exhange comma for | in types and color types
     console.log(window.location.href);
     if (window.location.href.includes("main.html")){
@@ -215,8 +213,6 @@ function TemCallResult(input)
     $("#AMPHATYR").hide();
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
-    
-    temWeaknessCalc("Platox");
 }
 
 function TemCallWeakResult(input)
@@ -349,6 +345,47 @@ function OneGSearchHide(temName){
         }
 
     }
+    temWeaknessCalc(temName);
+}
+function GoodESearchHide(temName){
+    $good1.html(images6);
+    var b;
+    for(i = 0; i < temNames.length; i++)
+    {
+        b = temTypes[i];
+        a = temNames[i];
+        $("#" + a + "good1").hide();
+        
+        for(j = 0; j < weakAgainst.length; j++){
+            
+            if(typeof weakAgainst[0] !== 'undefined'){
+                if(weakAgainst[j].indexOf(b[0]) > -1)
+                {
+                    $("#" + a + "good1").show();
+                }
+                else if(weakAgainst[j].indexOf(b[1]) > -1)
+                {
+                    $("#" + a + "good1").show();
+                }
+                else {
+                    $("#" + a + "good1").hide();
+                }
+            }
+            for(j = 0; j < strongAgainst.length; j++){
+                if(typeof strongAgainst[0] !== 'undefined'){
+                    if(strongAgainst[j].indexOf(b[0]) > -1)
+                    {
+                        $("#" + a + "good1").hide();
+                    }
+                    else if(strongAgainst[j].indexOf(b[1]) > -1)
+                    {
+                        $("#" + a + "good1").hide();
+                    }
+                }
+            }
+                
+        }
+    }
 }
 function show1GList()
 {
@@ -370,9 +407,7 @@ function CreateUserBut()
     MakeServerCall('createUser', dataField);
 }
 
-var weakAgainst = [];
-var strongAgainst = [];
-var neutralAgainst = [];
+
 function LoginUserBut()
 {
     username = document.getElementById("luser").value;
@@ -381,6 +416,10 @@ function LoginUserBut()
     MakeServerCall('authen_login', dataField);
     MakeServerCall('temListFetch', dataField);
 }
+
+var weakAgainst = [];
+var strongAgainst = [];
+var neutralAgainst = [];
 
 function temWeaknessCalc(temName){
     console.log(temName.toUpperCase());
@@ -521,4 +560,6 @@ function temWeaknessCalc(temName){
     console.log(temName + " is weak against "+ weakAgainst);
     console.log(temName + " is neutral against "+ neutralAgainst);
     console.log(temName + " is strong against "+ strongAgainst);
+    
+    GoodESearchHide(temName);
 }
