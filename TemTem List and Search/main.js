@@ -41,7 +41,7 @@ onload = function()
         if(document.cookie != "") $("#login").html(document.cookie);   
     });      
 }
-
+squadCounter = 1;
 // get *ONE* temtem with *SOME* information
 function MakeTemCallSolo(searchName, query)
 {
@@ -53,8 +53,11 @@ function MakeTemCallSolo(searchName, query)
         data: { names: searchName, fields: query},
 
         success: function(result)
-        {
-            return result;
+        {   
+            console.log(result[0].wikiPortraitUrlLarge);
+            createSquadImg(result[0].wikiPortraitUrlLarge, squadCounter);
+            squadCounter++;
+            if(squadCounter > 6) squadCounter = 1;
         }
     });
 }
@@ -252,15 +255,17 @@ function ServerDataFetch(input, dataType)
             console.log("cookie saved: " + document.cookie);
             $("#login").html(input);    // update the login button to relfect the username!
             // here we should make a temListFetch to update the squad list.
-            PopulateSquad(["Oree", "Ganki", "Loali", "Zaobian", "Granpah", "Hidody"]);
+            PopulateSquad(["Houchic", "Wiplump", "Azuroc", "Banapi", "Bunbun", "Nidrasil"]);
             // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
             break;
         case "createUser":
             alert('Successfully created user');
-            // here we should make an authen_login request to log in the newly created user
+            // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
             break;
         case "temListFetch":
             // since we are fetching the squad, we want to populate that squad with method PopulateSquad(input).
+            // convert input to array!
+            // PopulateSquad(input);
             break;
         case "temListUpdate":
             // here we have updated the temList in DB. It should always be the last step and just return some confirmation.
@@ -275,24 +280,45 @@ function ServerDataFetch(input, dataType)
 }
 
 function PopulateSquad(squadArray)
-{   if(squadArray.length == 6)
+{   
+    if(squadArray.length == 6)
     {   
-        // here we want to update the images in the squad list to match the names in squadArray.
-        $("#t1").html(createSquadImg(squadArray[0]));
-        $("#t2").html(createSquadImg(squadArray[1]));
-        $("#t3").html(createSquadImg(squadArray[2]));
-        $("#t4").html(createSquadImg(squadArray[3]));
-        $("#t5").html(createSquadImg(squadArray[4]));
-        $("#t6").html(createSquadImg(squadArray[5]));
+      MakeTemCallSolo(squadArray[0]);
+      MakeTemCallSolo(squadArray[1]);
+      MakeTemCallSolo(squadArray[2]);
+      MakeTemCallSolo(squadArray[3]);
+      MakeTemCallSolo(squadArray[4]);
+      MakeTemCallSolo(squadArray[5]);
     }
     else console.log("error on squadArray length >> " + squadArray);
 }
-function createSquadImg(name)
+function createSquadImg(url, spot)
 {
-    // url = NameToUrl (so call to API i guess..)
-    url = MakeTemCallSolo(name, "wikiPortraitUrlLarge" ); 
-    console.log("url is: " + url);
     let img = '<img class="squadImg" src=' + url + '>';
+    switch(spot)
+    {
+        case 1:
+            $("#t1").html(img);
+            break;
+        case 2:
+            $("#t2").html(img);
+            break;
+        case 3:
+            $("#t3").html(img);
+            break;
+        case 4: 
+            $("#t4").html(img);
+            break;
+        case 5:
+            $("#t5").html(img);
+            break;
+        case 6:
+            $("#t6").html(img);
+            break;
+        default:
+            console.log("unexpected spot: " + spot);
+
+    }
 }
 // function displaying an image from a url
 function CreateImgNoType(url, index, name)
