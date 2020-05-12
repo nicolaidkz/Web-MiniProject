@@ -81,7 +81,7 @@ function MakeServerCall(url,  dataField)
         data : dataField,
         //data: { user: "John", pass: "Boston" },
         
-        success: function(result)
+        success: function(result) 
         {
             //console.log(typeof result); 
             ServerDataFetch(result);
