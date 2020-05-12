@@ -27,7 +27,7 @@
         $row = mysqli_fetch_array($result);
         if ($row['username'] == $username && $row['password'] == $password ){
             //echo json_encode($row['temList']);
-            echo "welcome " . $username;
+            echo  $username;
         } else {
             echo "Failed to login!";
         }

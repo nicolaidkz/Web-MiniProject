@@ -37,10 +37,30 @@ onload = function()
         {
             $(this).attr("href", navButtonRef[index]);                      // maybe give them a href?
         }
-        else console.log(`missing URL for navButton  ${(index+1)} in navButtonRef!`);     
+        else console.log(`missing URL for navButton  ${(index+1)} in navButtonRef!`);  
+        if(document.cookie != "") $("#login").html(document.cookie);   
     });      
 }
+squadCounter = 1;
+// get *ONE* temtem with *SOME* information
+function MakeTemCallSolo(searchName, query)
+{
+    $.ajax(
+    {
+        type: 'GET',
+        url: 'https://temtem-api.mael.tech/api/temtems',
+        dataType: 'json',
+        data: { names: searchName, fields: query},
 
+        success: function(result)
+        {   
+            console.log(result[0].wikiPortraitUrlLarge);
+            createSquadImg(result[0].wikiPortraitUrlLarge, squadCounter);
+            squadCounter++;
+            if(squadCounter > 6) squadCounter = 1;
+        }
+    });
+}
 
 // get *ALL* temtem with *ALL* information
 function MakeTemCall()
@@ -67,6 +87,7 @@ function MakeTemWeakCall()
 
         success: function(result)
         {
+            
             TemCallWeakResult(result);
         }
     });
@@ -81,10 +102,10 @@ function MakeServerCall(url,  dataField)
         data : dataField,
         //data: { user: "John", pass: "Boston" },
         
-        success: function(result)
+        success: function(result) 
         {
             //console.log(typeof result); 
-            ServerDataFetch(result);
+            ServerDataFetch(result, url);
         },
         error: function (jqXHR, exception) {
             var msg = '';
@@ -142,7 +163,7 @@ function EnemyToggleModal(id)
 {
     if($eModal.is(":visible")) 
     {
-        $eModal.slideUp("slow");  // we should save choice of temtem (if any) before closing
+        $eModal.slideUp("slow");  // we should save choice of temtem (if any) before closing USE temListUpdate HERE !!!
     }
     else{
         $eModal.slideDown("fast");
@@ -223,15 +244,82 @@ function TemCallWeakResult(input)
         temWeakness.push(input);
 }
 
-function ServerDataFetch(input)
-{
-    // let test = JSON.parse(input);
-    // //console.log(typeof test);
-    // console.log(test);
-    alert('Success!' + input );
-    console.log("successfully logged in or created user..");
+function ServerDataFetch(input, dataType)
+{   
+
+    switch(dataType)
+    {
+        case "authen_login":
+            alert('Success! WELCOME ' + input );
+            document.cookie = input;    // save the username as a cookie
+            console.log("cookie saved: " + document.cookie);
+            $("#login").html(input);    // update the login button to relfect the username!
+            // here we should make a temListFetch to update the squad list.
+            PopulateSquad(["Houchic", "Wiplump", "Azuroc", "Banapi", "Bunbun", "Nidrasil"]);
+            // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
+            break;
+        case "createUser":
+            alert('Successfully created user');
+            // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
+            break;
+        case "temListFetch":
+            // since we are fetching the squad, we want to populate that squad with method PopulateSquad(input).
+            // convert input to array!
+            // PopulateSquad(input);
+            break;
+        case "temListUpdate":
+            // here we have updated the temList in DB. It should always be the last step and just return some confirmation.
+            alert(input);
+            break;
+        default:
+            // the response we got did not look familiar, time to panic and eat butter biscuits.
+            alert("unknown response: " + input);
+            break;
+    }
+
 }
 
+function PopulateSquad(squadArray)
+{   
+    if(squadArray.length == 6)
+    {   
+      MakeTemCallSolo(squadArray[0]);
+      MakeTemCallSolo(squadArray[1]);
+      MakeTemCallSolo(squadArray[2]);
+      MakeTemCallSolo(squadArray[3]);
+      MakeTemCallSolo(squadArray[4]);
+      MakeTemCallSolo(squadArray[5]);
+    }
+    else console.log("error on squadArray length >> " + squadArray);
+}
+function createSquadImg(url, spot)
+{
+    let img = '<img class="squadImg" src=' + url + '>';
+    switch(spot)
+    {
+        case 1:
+            $("#t1").html(img);
+            break;
+        case 2:
+            $("#t2").html(img);
+            break;
+        case 3:
+            $("#t3").html(img);
+            break;
+        case 4: 
+            $("#t4").html(img);
+            break;
+        case 5:
+            $("#t5").html(img);
+            break;
+        case 6:
+            $("#t6").html(img);
+            break;
+        default:
+            console.log("unexpected spot: " + spot);
+
+    }
+}
 // function displaying an image from a url
 function CreateImgNoType(url, index, name)
 {
