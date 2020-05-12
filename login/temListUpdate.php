@@ -1,9 +1,15 @@
 <?php
 
-//$inputTemList = "newTemList"
+if (isset($_POST['user']) and isset($_POST['tl']))
+{
+    // Assigning POST values to variables.
+    $inputUsername = $_POST['user'];
+    $inputTemList = $_POST['tl'];
+}
 
-//$sql = "UPDATE users SET temList='".$inputTemList."' WHERE username = '".$inputUsername."'";
-$sql = "UPDATE users SET temList='newTemList' WHERE username = '".$inputUsername."'";
+//$inputTemList = '["tem3", "tem4"]';
+
+$sql = "UPDATE users SET temList = '".$inputTemList."' WHERE username = '".$inputUsername."'";
 
 if (mysqli_query($connect, $sql)) {
     echo "<br/>Record updated successfully<br>";
