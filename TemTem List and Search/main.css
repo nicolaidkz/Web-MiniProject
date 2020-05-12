@@ -10,9 +10,19 @@
     display: inline-block;
 }
 
+.logintext{
+    margin-bottom: 1%;
+    font-weight: bolder;
+}
+
 .enemylogo{
     width: 70px;
     margin: 10px;
+}
+.enemylogo:hover{
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: rgba(0,0,0,0.20);
 }
 .logoContainer{
     width: auto;
@@ -154,7 +164,11 @@
     height: 80px;
     width: 100%;
     display: inline-block;
-
+}
+.enemyModalResult:hover{
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.20);
+    font-stretch: expanded;
 }
 .compareResult{
     height: 80px;
@@ -553,4 +567,32 @@
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: aliceblue;
+}
+
+.loginstyle{
+    color: aliceblue;
+    font-weight: bold;
+    MARGIN-top: 5%;
+}
+button {
+  background-color: slategrey;
+  color: aliceblue;
+  font-weight: bold;
+  padding: 5px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+    margin-bottom: 50px;
+}
+button:hover{
+    background-color: #647381;
+}
+.myWriteBar {
+    color: aliceblue;
+    margin-bottom: 10px;
+    background-color: rgba(0,0,0,0.35);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.20);
+    top: 92px;
+    width: 10%;
 }

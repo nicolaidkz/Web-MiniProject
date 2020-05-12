@@ -64,36 +64,41 @@
 
 
         <div id="mainContainer" class="mainContainer">
-
-            <div id="createForm">
-                <form id="create">
-                    <p>
-                        <label>Username</label>
-                        <input type="text" id="cuser" name="user" />
-                    </p>
-                    <p>
-                        <label>Password</label>
-                        <input type="password" id="cpass" name="pass" />
-                    </p>
-                    <p>
-                        <button type="button" id="btn2" onclick="CreateUserBut()">CREATE</button>
-                    </p>
-                </form>
+            <div id="login" class ="loginstyle">
+                <center>
+                    <p class ="logintext">LOGIN TO YOUR PROFILE HERE</p>
+                <div id="loginForm">
+                    <form id="login">
+                        <p>
+                            <label>Username: </label><br>
+                            <input type="text" id="luser" name="user" class="myWriteBar"/>
+                        </p>
+                        <p>
+                            <label>Password: </label><br>
+                            <input type="password" id="lpass" name="pass" class="myWriteBar"/>
+                        </p>
+                        <p>
+                            <button type="button" id="btn" onclick="LoginUserBut()">LOGIN TO PROFILE</button>
+                        </p>
+                    </form>
+                </div>
+                <div id="createForm">
+                    <p class="logintext">OR CREATE A NEW PROFILE HERE</p>
+                    <form id="create">
+                        <p>
+                            <label>Username: </label><br>
+                            <input type="text" id="cuser" name="user" class="myWriteBar"/>
+                        </p>
+                        <p>
+                            <label>Password: </label><br>
+                            <input type="password" id="cpass" name="pass" class="myWriteBar"/>
+                        </p>
+                        <p>
+                            <button type="button" id="btn2" onclick="CreateUserBut()">CREATE  PROFILE</button>
+                        </p>
+                    </form>
             </div>
-            <div id="loginForm">
-                <form id="login">
-                    <p>
-                        <label>Username</label>
-                        <input type="text" id="luser" name="user" />
-                    </p>
-                    <p>
-                        <label>Password</label>
-                        <input type="password" id="lpass" name="pass" />
-                    </p>
-                    <p>
-                        <button type="button" id="btn" onclick="LoginUserBut()">LOGIN</button>
-                    </p>
-                </form>
+                    </center>
             </div>
 
        <script src="main.js"></script>
