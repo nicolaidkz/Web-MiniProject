@@ -38,7 +38,12 @@ onload = function()
             $(this).attr("href", navButtonRef[index]);                      // maybe give them a href?
         }
         else console.log(`missing URL for navButton  ${(index+1)} in navButtonRef!`);  
-        if(document.cookie != "") $("#login").html(document.cookie);   
+        //if(document.cookie != "") $("#login").html(document.cookie);   
+        if(localStorage.getItem("user")) $("#login").html(localStorage.getItem("user"));
+         for(i = 1; i <=6 ; i++)
+         {
+             if(localStorage.getItem('tem' + i)) $("#t" + i).html(localStorage.getItem('tem' + i));
+         }
     });      
 }
 squadCounter = 1;
@@ -55,7 +60,7 @@ function MakeTemCallSolo(searchName, query)
         success: function(result)
         {   
             console.log(result[0].wikiPortraitUrlLarge);
-            createSquadImg(result[0].wikiPortraitUrlLarge, squadCounter);
+            createSquadImg(result[0].wikiPortraitUrlLarge, squadCounter, searchName);
             squadCounter++;
             if(squadCounter > 6) squadCounter = 1;
         }
@@ -146,6 +151,7 @@ function ToggleModal(id)
     if($sModal.is(":visible")) 
     {
         $sModal.slideUp("slow");  // we should save choice of temtem (if any) before closing
+        UpdateRoster();
     }
     else{
         $sModal.slideDown("fast");
@@ -243,7 +249,16 @@ function TemCallWeakResult(input)
 {             
         temWeakness.push(input);
 }
-
+function UpdateRoster()         // CALL THIS WHEN YOU HAVE UPDATED THE SQUAD ROSTER
+{
+    var squadArray = new Array;
+    for(i = 0; i <= 6; i++)
+    {
+       squadArray[i] = $("#t" + (i+1)).children("img").attr("name");
+    }
+    stringSquad = '["'+squadArray[0]+'","'+squadArray[1]+'","'+squadArray[2]+'","'+squadArray[3]+'","'+squadArray[4]+'","'+squadArray[5]+'"]';
+    MakeServerCall('temListUpdate', {user:localStorage.getItem('user'), tl:stringSquad});
+}
 function ServerDataFetch(input, dataType)
 {   
 
@@ -251,11 +266,13 @@ function ServerDataFetch(input, dataType)
     {
         case "authen_login":
             alert('Success! WELCOME ' + input );
-            document.cookie = input;    // save the username as a cookie
-            console.log("cookie saved: " + document.cookie);
+            //document.cookie = input;    // save the username as a cookie
+            //console.log("cookie saved: " + document.cookie);
+            localStorage.setItem("user", input);
             $("#login").html(input);    // update the login button to relfect the username!
             // here we should make a temListFetch to update the squad list.
-            PopulateSquad(["Houchic", "Wiplump", "Azuroc", "Banapi", "Bunbun", "Nidrasil"]);
+            let dataField = {user: localStorage.getItem("user")};
+            MakeServerCall('temListFetch', dataField);
             // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
             break;
         case "createUser":
@@ -264,8 +281,20 @@ function ServerDataFetch(input, dataType)
             break;
         case "temListFetch":
             // since we are fetching the squad, we want to populate that squad with method PopulateSquad(input).
-            // convert input to array!
-            // PopulateSquad(input);
+            // first we convert the whole thing to an array of strings..
+            let trim = input.slice(1, input.length-1);
+            let split = trim.split(",");
+            console.log("successfully fetched: " + input);
+            console.log("slice: " + trim + " split: " + split[0]);
+            console.log(split[0]);
+            var stringArray = [];
+            split.forEach(sub => {
+                let stub = sub.substr(1, sub.length -2);
+                stringArray.push(stub);
+                
+            });
+            console.log(stringArray);
+            PopulateSquad(stringArray);
             break;
         case "temListUpdate":
             // here we have updated the temList in DB. It should always be the last step and just return some confirmation.
@@ -282,38 +311,45 @@ function ServerDataFetch(input, dataType)
 function PopulateSquad(squadArray)
 {   
     if(squadArray.length == 6)
-    {   
-      MakeTemCallSolo(squadArray[0]);
-      MakeTemCallSolo(squadArray[1]);
-      MakeTemCallSolo(squadArray[2]);
-      MakeTemCallSolo(squadArray[3]);
-      MakeTemCallSolo(squadArray[4]);
-      MakeTemCallSolo(squadArray[5]);
+    { 
+        query = "wikiPortraitUrlLarge" ;   
+        MakeTemCallSolo(squadArray[0], query);
+        MakeTemCallSolo(squadArray[1], query);
+        MakeTemCallSolo(squadArray[2], query);
+        MakeTemCallSolo(squadArray[3], query);
+        MakeTemCallSolo(squadArray[4], query);
+        MakeTemCallSolo(squadArray[5], query);
     }
     else console.log("error on squadArray length >> " + squadArray);
 }
-function createSquadImg(url, spot)
+function createSquadImg(url, spot, name)
 {
-    let img = '<img class="squadImg" src=' + url + '>';
+    let img = '<img class="squadImg" src=' + url + ' name="' +name+ '">';
     switch(spot)
     {
         case 1:
             $("#t1").html(img);
+            localStorage.setItem('tem1', img);
             break;
         case 2:
             $("#t2").html(img);
+            localStorage.setItem('tem2', img);
             break;
         case 3:
             $("#t3").html(img);
+            localStorage.setItem('tem3', img);
             break;
         case 4: 
             $("#t4").html(img);
+            localStorage.setItem('tem4', img);
             break;
         case 5:
             $("#t5").html(img);
+            localStorage.setItem('tem5', img);
             break;
         case 6:
             $("#t6").html(img);
+            localStorage.setItem('tem6', img);
             break;
         default:
             console.log("unexpected spot: " + spot);
@@ -657,7 +693,7 @@ function LoginUserBut()
     pass = document.getElementById("lpass").value;
     dataField = {user : username , pass : pass };
     MakeServerCall('authen_login', dataField);
-    MakeServerCall('temListFetch', dataField);
+    //MakeServerCall('temListFetch', dataField);
 }
 
 var weakAgainst = [];
