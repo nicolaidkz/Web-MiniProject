@@ -1,151 +1,145 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel='icon' href='typeimg/favicon.ico' type='image/x-icon'/ >
-        <title>TemComp | TemTem Team Composition</title>
-        <link rel="stylesheet" href="main.css">
-        
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">  
-        </script>        
-    </head>
 
-    <body>
-        <div id="topNavBar" class="topNavBar">
-            <div class="logoContainer">
+<head>
+    <link rel='icon' href='typeimg/favicon.ico' type='image/x-icon' />
+    <title>TemComp | TemTem Team Composition</title>
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+</head>
+
+<body>
+    <div id="topNavBar" class="topNavBar">
+        <div class="logoContainer">
             <img class="title" src="typeimg/TemCompBadge.png">
+        </div>
+        <div id="navGrid">
+            <a id="search">SEARCH</a>
+            <a id="comp">COMPARE</a>
+            <a id="login">LOGIN</a>
+        </div>
+    </div>
+
+    <div id="squadCard" class="expand">
+        <img id="expander" onclick='ToggleSquadCard()' src="typeimg/user.png"></img>
+        <div id="rosterGrid">
+            <div id="t1" onclick="ToggleModal('1')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
             </div>
-            <div id="navGrid">
-				<a id="search">SEARCH</a>
-				<a id="comp">COMPARE</a>
-                <a id="login">LOGIN</a>
+            <div id="t2" onclick="ToggleModal('2')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t3" onclick="ToggleModal('3')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t4" onclick="ToggleModal('4')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t5" onclick="ToggleModal('5')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t6" onclick="ToggleModal('6')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
             </div>
         </div>
-        
-                <div id="squadCard" class="expand">
-            <img id="expander" onclick='ToggleSquadCard()' src="typeimg/user.png"></img>
-            <div id="rosterGrid">
-                <div id="t1" onclick="ToggleModal('t1')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t2" onclick="ToggleModal('t2')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t3" onclick="ToggleModal('t3')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t4" onclick="ToggleModal('t4')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t5" onclick="ToggleModal('t5')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t6" onclick="ToggleModal('t6')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
+    </div>
+
+    <!-- modal (popup) page to hold squad selection menu -->
+    <div id="squadModal" class="modal">
+        <div id="sM-content" class="modal-content">
+            <span class="closeSpan" onclick="CloseModal()">&times</span>
+            <div id="searchModal">
+                <input type="text" id="modalInput" class="mySearch" onkeyup="searchHideModal()"
+                    placeholder="Search for names.." title="Type in a name" autocomplete="off">
+            </div>
+            <div id="resultList">
+
             </div>
         </div>
+    </div>
+    <!-- modal (popup) page to hold senemy selection menu -->
 
-<!-- modal (popup) page to hold squad selection menu -->
-			<div id="squadModal" class="modal">
-				<div id="sM-content" class="modal-content">
-                    <span class="closeSpan" onclick="CloseModal()">&times</span>
-                    <div id="searchModal">
-                        <input type="text" id="modalInput" class="mySearch" onkeyup="searchHideModal()" placeholder="Search for names.." title="Type in a name" autocomplete="off">
-                    </div>
-                    <div id="resultList">
-                        
-                    </div>
-				</div>
-			</div>
-<!-- modal (popup) page to hold senemy selection menu -->
-        
-        <div id="mainContainer" class="mainContainer">
-                <!-- 
-                    <div id="e1" class="compareCard">
-                <img src="typeimg/plus.png" class="smallImg" onclick="EnemyToggleModal('e1')"></img>
-                <p class="temName">test test</p>
+    <div id="mainContainer" class="mainContainer">
+        <div id="compareGrid" class="compareGrid">
+            <div id="infopane" class="lI">
+                <p class="strongText">WELCOME TO THE COMPARE FUNCTION</p>
+                <p class="strongText">CHOOSE THE TEMTEM YOU ARE UP AGAINST ON EITHER SIDE</p>
+                <p class="strongText">AND SEE WHICH TEMTEM YOU SHOULD PICK</p>
+            </div>
+            <div id="enemy1G" class="cG">
+                <p class="strongText">CHOOSE ENEMY TEMTEM #1</p>
+                <div id="E1GList">
+                    <img id="select1G" class="enemylogo" src="typeimg/Enemy1.png" onclick="showGList(1)">
                 </div>
-                <div id="e2" class="compareCard">
-                <img src="typeimg/plus.png" class="smallImg" onclick="EnemyToggleModal('e2')"></img>
-                <p class="temName">test test</p>
-                </div> 
-                -->   
-                <div id="compareGrid" class="compareGrid">
-                    <div id="infopane" class="lI">
-                        <p class="strongText">WELCOME TO THE COMPARE FUNCTION</p>
-                        <p class="strongText">CHOOSE THE TEMTEM YOU ARE UP AGAINST ON EITHER SIDE</p>
-                        <p class="strongText">AND SEE WHICH TEMTEM YOU SHOULD PICK</p>
+                <div id="E1Gmodal" class="modal">
+                    <div id="e1-content" class="modal-content">
+                        <span class="closeSpan" onclick="EnemyCloseModal(1)">&times</span>
+                        <div id="e1searchModal">
+                            <input type="text" id="enemyModalInput1" class="mySearch" onkeyup="enemySearchHideModal(1)"
+                                placeholder="Search for names.." title="Type in a name" autocomplete="off"></div>
+                        <div id="E1Gimg"></div>
                     </div>
-                    <div id="enemy1G" class="cG"> 
-                        <p class="strongText">CHOOSE ENEMY TEMTEM #1</p>
-                        <div id="E1GList">
-                            <img id="select1G" class="enemylogo" src="typeimg/Enemy1.png" onclick="showGList(1)">
-                        </div>
-                        <div id="E1Gmodal" class="modal">
-                            <div id="e1-content" class="modal-content">
-                                <span class="closeSpan" onclick="EnemyCloseModal(1)">&times</span>
-                            <div id="e1searchModal">
-                                <input type="text" id="enemyModalInput1" class="mySearch" onkeyup="enemySearchHideModal(1)" placeholder="Search for names.." title="Type in a name" autocomplete="off"></div>
-                                <div id="E1Gimg"></div>
-                            </div>
-                        </div>
-                    </div>
-                        <div id="e1G1" class="lR cG"></div> 
-                        <div id="e1G2" class="lR cG"></div> 
-
-                    <div id="enemy2G" class="cG"> 
-                        <p class="strongText">CHOOSE ENEMY TEMTEM #2</p>
-                        <div id="E2GList">
-                            <img id="select2G" class="enemylogo" src="typeimg/Enemy2.png" onclick="showGList(2)">
-                        </div> 
-                        <div id="E2Gmodal" class="modal">  
-                            <div id="e2-content" class="modal-content">
-                            
-                            
-                            <span class="closeSpan" onclick="EnemyCloseModal(2)">&times</span>
-                            <div id="e2searchModal"><input type="text" id="enemyModalInput2" class="mySearch" onkeyup="enemySearchHideModal(2)" placeholder="Search for names.." title="Type in a name" autocomplete="off"></div>
-                                <div id="E2Gimg"></div>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                        <div id="e2G1" class="lL cG"></div> 
-                        <div id="e2G2" class="lL cG"></div> 
-
-                        <div id="g1G1" class="lLT cG"></div>
-                        <div id="g1G2" class="lL cG" ></div>
-                    <div id="good1G" class="cG">
-                        <p class="strongText">STRONG VS ENEMY #1</p> 
-                        <div id="good1Content" class="compareList">
-
-                        </div>
-                    </div>
-
-                        <div id="h3t" class='lT cG'></div>
-                        <div id='h1lt' class="lLT cG"></div>
-                        <div id="h2t" class="lT cG"></div>
-                    <div id="good12G" class="cG">
-                        <p class="strongText">STRONG VS BOTH</p> 
-                        <div id="good12Content" class="compareList" >
-                            
-                        </div>
-                    </div>
-
-                        <div id="g2G1" class="lRT cG"></div>
-                        <div id="g2G2" class="lR cG"></div>
-                    <div id="good2G" class="cG">
-                        <p class="strongText">STRONG VS ENEMY #2</p> 
-                        <div id="good2Content" class="compareList">
-                            
-                        </div>
-                    </div>
-                    <div></div>    
                 </div>
-        </div>   
-       <script src="main.js"></script>
-    </body>
+            </div>
+            <div id="e1G1" class="lR cG"></div>
+            <div id="e1G2" class="lR cG"></div>
+
+            <div id="enemy2G" class="cG">
+                <p class="strongText">CHOOSE ENEMY TEMTEM #2</p>
+                <div id="E2GList">
+                    <img id="select2G" class="enemylogo" src="typeimg/Enemy2.png" onclick="showGList(2)">
+                </div>
+                <div id="E2Gmodal" class="modal">
+                    <div id="e2-content" class="modal-content">
+
+
+                        <span class="closeSpan" onclick="EnemyCloseModal(2)">&times</span>
+                        <div id="e2searchModal"><input type="text" id="enemyModalInput2" class="mySearch"
+                                onkeyup="enemySearchHideModal(2)" placeholder="Search for names.."
+                                title="Type in a name" autocomplete="off"></div>
+                        <div id="E2Gimg"></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="e2G1" class="lL cG"></div>
+            <div id="e2G2" class="lL cG"></div>
+
+            <div id="g1G1" class="lLT cG"></div>
+            <div id="g1G2" class="lL cG"></div>
+            <div id="good1G" class="cG">
+                <p class="strongText">STRONG VS ENEMY #1</p>
+                <div id="good1Content" class="compareList">
+
+                </div>
+            </div>
+
+            <div id="h3t" class='lT cG'></div>
+            <div id='h1lt' class="lLT cG"></div>
+            <div id="h2t" class="lT cG"></div>
+            <div id="good12G" class="cG">
+                <p class="strongText">STRONG VS BOTH</p>
+                <div id="good12Content" class="compareList">
+
+                </div>
+            </div>
+
+            <div id="g2G1" class="lRT cG"></div>
+            <div id="g2G2" class="lR cG"></div>
+            <div id="good2G" class="cG">
+                <p class="strongText">STRONG VS ENEMY #2</p>
+                <div id="good2Content" class="compareList">
+
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
 </html>

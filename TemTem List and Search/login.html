@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel='icon' href='typeimg/favicon.ico' type='image/x-icon'/ >
-        <title>TemComp | TemTem Team Composition</title>
-        <link rel="stylesheet" href="main.css">
-        
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">  
-        </script>        
-    </head>
 
-    <body>
-        <div id="topNavBar" class="topNavBar">
-            <div class="logoContainer">
+<head>
+    <link rel='icon' href='typeimg/favicon.ico' type='image/x-icon' />
+    <title>TemComp | TemTem Team Composition</title>
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+</head>
+
+<body>
+    <div id="topNavBar" class="topNavBar">
+        <div class="logoContainer">
             <img class="title" src="typeimg/TemCompBadge.png">
+        </div>
+        <div id="navGrid">
+            <a id="search">SEARCH</a>
+            <a id="comp">COMPARE</a>
+            <a id="login">LOGIN</a>
+        </div>
+    </div>
+
+    <div id="squadCard" class="collapse">
+        <img id="expander" onclick='ToggleSquadCard()' src="typeimg/user.png"></img>
+        <div id="rosterGrid">
+            <div id="t1" onclick="ToggleModal('1')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
             </div>
-            <div id="navGrid">
-				<a id="search">SEARCH</a>
-				<a id="comp">COMPARE</a>
-                <a id="login">LOGIN</a>
+            <div id="t2" onclick="ToggleModal('2')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t3" onclick="ToggleModal('3')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t4" onclick="ToggleModal('4')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t5" onclick="ToggleModal('5')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
+            </div>
+            <div id="t6" onclick="ToggleModal('6')">
+                <img src="typeimg/plus.png" class="squadImg"></img>
             </div>
         </div>
-        
-                <div id="squadCard" class="collapse">
-            <img id="expander" onclick='ToggleSquadCard()' src="typeimg/user.png"></img>
-            <div id="rosterGrid">
-                <div id="t1" onclick="ToggleModal('t1')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t2" onclick="ToggleModal('t2')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t3" onclick="ToggleModal('t3')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t4" onclick="ToggleModal('t4')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t5" onclick="ToggleModal('t5')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
-                <div id="t6" onclick="ToggleModal('t6')">
-                    <img src="typeimg/plus.png" class="squadImg"></img>
-                </div>
+    </div>
+
+    <!-- modal (popup) page to hold squad selection menu -->
+    <div id="squadModal" class="modal">
+        <div id="sM-content" class="modal-content">
+            <span class="closeSpan" onclick="CloseModal()">&times</span>
+            <div id="searchModal">
+                <input type="text" id="modalInput" class="mySearch" onkeyup="searchHideModal()"
+                    placeholder="Search for names.." title="Type in a name" autocomplete="off">
+            </div>
+            <div id="resultList">
+
             </div>
         </div>
-
-<!-- modal (popup) page to hold squad selection menu -->
-			<div id="squadModal" class="modal">
-				<div id="sM-content" class="modal-content">
-                    <span class="closeSpan" onclick="CloseModal()">&times</span>
-                    <div id="searchModal">
-                        <input type="text" id="modalInput" class="mySearch" onkeyup="searchHideModal()" placeholder="Search for names.." title="Type in a name" autocomplete="off">
-                    </div>
-                    <div id="resultList">
-                        
-                    </div>
-				</div>
-			</div>
-        
+    </div>
 
 
-        <div id="mainContainer" class="mainContainer">
-            <div id="login" class ="loginstyle">
-                <center>
-                    <p class ="logintext">LOGIN TO YOUR PROFILE HERE</p>
+
+    <div id="mainContainer" class="mainContainer">
+        <div id="login" class="loginstyle">
+            <center>
+                <p class="logintext">LOGIN TO YOUR PROFILE HERE</p>
                 <div id="loginForm">
                     <form id="login">
                         <p>
                             <label>Username: </label><br>
-                            <input type="text" id="luser" name="user" class="myWriteBar"/>
+                            <input type="text" id="luser" name="user" class="myWriteBar" />
                         </p>
                         <p>
                             <label>Password: </label><br>
-                            <input type="password" id="lpass" name="pass" class="myWriteBar"/>
+                            <input type="password" id="lpass" name="pass" class="myWriteBar" />
                         </p>
                         <p>
                             <button type="button" id="btn" onclick="LoginUserBut()">LOGIN TO PROFILE</button>
@@ -87,20 +87,21 @@
                     <form id="create">
                         <p>
                             <label>Username: </label><br>
-                            <input type="text" id="cuser" name="user" class="myWriteBar"/>
+                            <input type="text" id="cuser" name="user" class="myWriteBar" />
                         </p>
                         <p>
                             <label>Password: </label><br>
-                            <input type="password" id="cpass" name="pass" class="myWriteBar"/>
+                            <input type="password" id="cpass" name="pass" class="myWriteBar" />
                         </p>
                         <p>
-                            <button type="button" id="btn2" onclick="CreateUserBut()">CREATE  PROFILE</button>
+                            <button type="button" id="btn2" onclick="CreateUserBut()">CREATE PROFILE</button>
                         </p>
                     </form>
-            </div>
-                    </center>
-            </div>
+                </div>
+            </center>
+        </div>
 
-       <script src="main.js"></script>
-    </body>
+        <script src="main.js"></script>
+</body>
+
 </html>
