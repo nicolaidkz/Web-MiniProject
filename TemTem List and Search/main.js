@@ -46,9 +46,8 @@ onload = function()
          }
     });      
 }
-squadCounter = 1;
 // get *ONE* temtem with *SOME* information
-function MakeTemCallSolo(searchName, query)
+function MakeTemCallSolo(searchName, query, nameArray)
 {
     $.ajax(
     {
@@ -59,11 +58,29 @@ function MakeTemCallSolo(searchName, query)
 
         success: function(result)
         {   
-            console.log(result[0].wikiPortraitUrlLarge);
-            createSquadImg(result[0].wikiPortraitUrlLarge, squadCounter, searchName);
-            squadCounter++;
-            if(squadCounter > 6) squadCounter = 1;
-        }
+
+            // result.map((item, index) => 
+            // {
+            //     createSquadImg(result.wikiPortraitUrlLarge, index+1, searchName);
+            // });
+             if(result.length == 6)
+             {
+                 for(i = 0; i<result.length;i++)
+                 {
+                      createSquadImg(result[i].wikiPortraitUrlLarge, i+1, searchName);
+                 }
+            }
+            else if(result.length < 6)
+            {
+                // check for duplicates! let's hope theres only one..
+                console.log("duplicates found, some TemTem went missing!");
+                    // RESULT CONTAINS .wikiPortraitUrlLarge AND .name
+                    // IT ONLY CONTAINS ONE INSTANCE OF DUPLICATE NAMES
+                    // nameArray HOLDS ALL THE NAMES THAT WAS SEARCHED FOR (e.g. "Oree", "Oree" etc)
+                    // COMPARE result.name with nameArray to see how many times each name occurs
+                    // createSquadImg 6 times, with the found duplicates!  
+            }
+             }
     });
 }
 
@@ -290,8 +307,7 @@ function ServerDataFetch(input, dataType)
             var stringArray = [];
             split.forEach(sub => {
                 let stub = sub.substr(1, sub.length -2);
-                stringArray.push(stub);
-                
+                stringArray.push(stub);              
             });
             console.log(stringArray);
             PopulateSquad(stringArray);
@@ -313,12 +329,15 @@ function PopulateSquad(squadArray)
     if(squadArray.length == 6)
     { 
         query = "wikiPortraitUrlLarge" ;   
-        MakeTemCallSolo(squadArray[0], query);
-        MakeTemCallSolo(squadArray[1], query);
-        MakeTemCallSolo(squadArray[2], query);
-        MakeTemCallSolo(squadArray[3], query);
-        MakeTemCallSolo(squadArray[4], query);
-        MakeTemCallSolo(squadArray[5], query);
+        // MakeTemCallSolo(squadArray[0], query);
+        // MakeTemCallSolo(squadArray[1], query);
+        // MakeTemCallSolo(squadArray[2], query);
+        // MakeTemCallSolo(squadArray[3], query);
+        // MakeTemCallSolo(squadArray[4], query);
+        // MakeTemCallSolo(squadArray[5], query);
+        console.log(squadArray);
+        temCallString = squadArray[0] + "," + squadArray[1] + "," + squadArray[2] + "," + squadArray[3] + "," + squadArray[4] + "," + squadArray[5];
+        MakeTemCallSolo(temCallString, query, squadArray);
     }
     else console.log("error on squadArray length >> " + squadArray);
 }
