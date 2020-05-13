@@ -46,7 +46,7 @@ onload = function()
          }
     });      
 }
-// get *ONE* temtem with *SOME* information
+// get *SOME* temtem with *SOME* information
 function MakeTemCallSolo(searchName, query, nameArray)
 {
     $.ajax(

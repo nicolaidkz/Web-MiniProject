@@ -176,7 +176,7 @@
 }
 .compareList{
     width : 100%;
-    max-height : 100%;
+    max-height : 90%;
     overflow-y: scroll;
 }
 .closeSpan{
@@ -281,8 +281,8 @@
     '. . . . . . . . . . . .'
     '. . e1 e1 . . . . e2 e2 . .'
     '. . e1 e1 . . . . e2 e2 . .'
-    '. . e1G1 . . . . . . e2G1 . .'
-    '. . e1G2 . . . . . . e2G2 . .'
+    '. . e1G1 . IN IN IN IN . e2G1 . .'
+    '. . e1G2 . IN IN IN IN . e2G2 . .'
     '. . g1G1 h3t h3t h3t h1lt h2t h2t g2G1 . .'
     '. . g1G2 . . g12 g12 . . g2G2 . .'
     '. g1 g1 . . g12 g12 . . g2 g2 .'
@@ -386,14 +386,22 @@
 .lT{
     border-top: 4px solid;
 }
-
+.lI{
+    grid-area: IN;
+    text-align: center;
+}
 .cG{
     min-width: 50px;
-    min-height: 100px;
+    min-height: 110px;
     max-height: 20%;
 }
 /*#endregion */
-
+.strongText{
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+    color: aliceblue;
+}
 .temName
 {
     color: aliceblue;
