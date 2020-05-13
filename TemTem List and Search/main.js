@@ -8,8 +8,6 @@ let $sModal = $("#squadModal");
 let $eModal = $("#enemyModal");
 let $modalResult = $("#resultList");
 let $enemyModalResult = $("#resultList2");
-let $1gModal = $("#E1Gmodal");
-let $2gModal = $("#E2Gmodal");
 let $1gList = $("#E1Gimg");
 let $2gList = $("#E2Gimg");
 let $1gBox = $("#E1GList");
@@ -179,10 +177,8 @@ function ToggleModal(id)
     }
 }
 
-function EnemyCloseModal(id) 
+function EnemyCloseModal() 
 {
-    if (id=1) $1gModal.hide();
-    if (id=2) $2gModal.hide();
     $eModal.hide();
     //console.log("trying to close modal");
 }
@@ -203,8 +199,6 @@ var images5 = []; // for showing enemy 2 in compare
 var images6 = []; // for showing good against enemy 1
 var images7 = []; // for showing good against enemy 2
 var images8 = []; // for showing good against both enemies
-var images9 = [];
-var images10 = [];
 var globalInput = [];
 // function receiving data from TemCall (use to process result)
 function TemCallResult(input)
@@ -228,10 +222,6 @@ function TemCallResult(input)
         let img6 = '<div id="'+item.name.toUpperCase()+'good1"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 600+index, item.name) + '</div>';
         let img7 = '<div id="'+item.name.toUpperCase()+'good12"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 700+index, item.name) + '</div>';
         let img8 = '<div id="'+item.name.toUpperCase()+'good2"'+' class="compareResult")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 800+index, item.name) + '</div>';
-        let img9 = '<div id="'+item.name.toUpperCase()+'1GEnemy"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +1+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 900+index, item.name) + '</div>';
-        let img10 = '<div id="'+item.name.toUpperCase()+'2GEnemy"'+' class="enemyModalResult") onclick=GSelect("'+item.name+'",' +2+')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 1000+index, item.name) + '</div>';
-        images10.push(img10);
-        images9.push(img9);
         images8.push(img8);
         images7.push(img7);
         images6.push(img6);
@@ -297,11 +287,8 @@ function ServerDataFetch(input, dataType)
             alert('Success! WELCOME ' + input );
             //document.cookie = input;    // save the username as a cookie
             //console.log("cookie saved: " + document.cookie);
-            
-            if(input.length = 0 || input.length < 100){
-                localStorage.setItem("user", input);
-                $("#login").html(input);    // update the login button to relfect the username!   
-            }
+            localStorage.setItem("user", input);
+            $("#login").html(input);    // update the login button to relfect the username!
             // here we should make a temListFetch to update the squad list.
             let dataField = {user: localStorage.getItem("user")};
             MakeServerCall('temListFetch', dataField);
@@ -469,9 +456,9 @@ function searchHideModal(){
 
     }
 }
-function enemySearchHideModal(id){
+function enemySearchHideModal(){
     var input, filter;
-    input = document.getElementById("enemyModalInput"+id);
+    input = document.getElementById("enemyModalInput");
     filter = input.value.toUpperCase();
     // add all the temtem images to the modal and hide/show here
 
@@ -480,9 +467,9 @@ function enemySearchHideModal(id){
         let a = temNames[i];
         if(a.indexOf(filter) > -1)
         {
-            $("#" + a + id+ "GList").show();
+            $("#" + a + "enemyModal").show();
         }
-        else $("#" + a + id+"GList").hide();
+        else $("#" + a + "enemyModal").hide();
 
     }
 }
@@ -491,7 +478,7 @@ function GSearchHide(temName, id){
     filter = temName.toUpperCase();
     if(id == 1)
     {
-        $1gBox.html(images9);
+        $1gBox.html(images4);
         // add all the temtem images to the modal and hide/show here
 
         for(i = 0; i < temNames.length; i++)
@@ -499,12 +486,12 @@ function GSearchHide(temName, id){
             let a = temNames[i];
             if(a.indexOf(filter) > -1)
             {
-                $("#" + a + "1GEnemy").show();
-                $("#" + a + "1GEnemy").attr("onclick", "showGList(1)");
+                $("#" + a + "1GList").show();
+                $("#" + a + "1GList").attr("onclick", "showGList(1)");
             }
             else {
-                $("#" + a + "1GEnemy").hide();
-                $("#" + a + "1GEnemy").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
+                $("#" + a + "1GList").hide();
+                $("#" + a + "1GList").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
             }
 
         }
@@ -512,7 +499,7 @@ function GSearchHide(temName, id){
     }
     else if (id == 2)
     {
-        $2gBox.html(images10);
+        $2gBox.html(images5);
         // add all the temtem images to the modal and hide/show here
 
         for(i = 0; i < temNames.length; i++)
@@ -520,12 +507,12 @@ function GSearchHide(temName, id){
             let a = temNames[i];
             if(a.indexOf(filter) > -1)
             {
-                $("#" + a + "2GEnemy").show();
-                $("#" + a + "2GEnemy").attr("onclick", "showGList(2)");
+                $("#" + a + "2GList").show();
+                $("#" + a + "2GList").attr("onclick", "showGList(2)");
             }
             else {
-                $("#" + a + "2GEnemy").hide();
-                $("#" + a + "2GEnemy").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
+                $("#" + a + "2GList").hide();
+                $("#" + a + "2GList").attr("onclick", "GSelect("+ temName + '",'+ id + ")");
             }
 
         }
@@ -703,13 +690,13 @@ function GoodESearchHide(temName, id){
     
 function showGList(id)
 {
-    if(id == 1) $1gModal.show();
-    else if (id == 2) $2gModal.show();   
+    if(id == 1) $1gList.show();
+    else if (id == 2) $2gList.show();   
 }
 function GSelect(temName, id)
 {
-    if(id == 1) $1gModal.hide(); GSearchHide(temName, id);
-    if(id == 2) $2gModal.hide(); GSearchHide(temName, id);   
+    if(id == 1) $1gList.hide(); GSearchHide(temName, id);
+    if(id == 2) $2gList.hide(); GSearchHide(temName, id);   
     
 }
 function CreateUserBut()

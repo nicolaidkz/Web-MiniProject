@@ -61,6 +61,16 @@
 				</div>
 			</div>
 <!-- modal (popup) page to hold senemy selection menu -->
+            <div id="enemyModal" class="emodal">
+				<div id="sM-content" class="modal-content">
+                    <span class="closeSpan" onclick="EnemyCloseModal()">&times</span>
+                    <div id="searchModal">
+                        <input type="text" id="enemyModalInput" class="mySearch" onkeyup="enemySearchHideModal()" placeholder="Search for names.." title="Type in a name" autocomplete="off">
+                    </div>
+                    <div id="resultList2">
+                    </div>
+				</div>
+			</div>
         
         <div id="mainContainer" class="mainContainer">
                 <!-- 
@@ -77,31 +87,17 @@
                     <div id="enemy1G" class="cG"> 
                         <div id="E1GList">
                             <img id="select1G" class="enemylogo" src="typeimg/Enemy1.png" onclick="showGList(1)">
-                        </div>
-                        <div id="E1Gmodal" class="modal">
-                            <span class="closeSpan" onclick="EnemyCloseModal(1)">&times</span>
-                            <div id="e1searchModal">
-                                <input type="text" id="enemyModalInput1" class="mySearch" onkeyup="enemySearchHideModal(1)" placeholder="Search for names.." title="Type in a name" autocomplete="off"></div>
-                                <div id="E1Gimg"></div>
-                        </div>
+                        </div> 
+                        <div id="E1Gimg" class="modal"></div>
                     </div>
                         <div id="e1G1" class="lR cG"></div> 
                         <div id="e1G2" class="lR cG"></div> 
 
                     <div id="enemy2G" class="cG"> 
-                        <div id="E2GList" >
+                        <div id="E2GList">
                             <img id="select2G" class="enemylogo" src="typeimg/Enemy2.png" onclick="showGList(2)">
                         </div> 
-                        <div id="E2Gmodal" class="modal">  
-                            <div id="e2-content" class="modal-content">
-                            
-                            
-                            <span class="closeSpan" onclick="EnemyCloseModal(2)">&times</span>
-                            <div id="e2searchModal"><input type="text" id="enemyModalInput2" class="mySearch" onkeyup="enemySearchHideModal(2)" placeholder="Search for names.." title="Type in a name" autocomplete="off"></div>
-                                <div id="E2Gimg"></div>
-                            </div>
-                            
-                        </div>
+                        <div id="E2Gimg" class="modal"></div>
 
                     </div>
                         <div id="e2G1" class="lL cG"></div> 
