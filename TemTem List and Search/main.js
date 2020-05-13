@@ -29,6 +29,45 @@ var temWeakness = [];
 
 MakeTemWeakCall();
 
+function matchFunction(temName){
+    if ($("#t1").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+    if ($("#t2").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+    if ($("#t3").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+    if ($("#t4").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+    if ($("#t5").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+    if ($("#t6").html().toUpperCase().indexOf(temName) > -1)
+    {
+        $("#" + temName +"good1").attr("class","inSquad");
+        $("#" + temName +"good2").attr("class","inSquad");
+        $("#" + temName +"good12").attr("class","inSquad");
+    }
+}
+
 onload = function () {
     // lets do things to the navButtons!
     $navButtons.addClass("navButton");                                      // give them style
@@ -524,7 +563,7 @@ function GoodESearchHide(temName, id) {
         neutralAgainst1 = neutralAgainst;
         strongAgainst1 = strongAgainst;
         $good1.html(images6);
-        var b;
+        var b, a;
         for (i = 0; i < temNames.length; i++) {
             var score = 0;
             b = temTypes[i];
@@ -534,11 +573,13 @@ function GoodESearchHide(temName, id) {
                 if (typeof weakAgainst[0] !== 'undefined') {
                     if (weakAgainst[j].indexOf(b[0]) > -1) {
                         $("#" + a + "good1").show();
+                        matchFunction(a);
                         score = score + 2;
                     }
                     if (weakAgainst[j].indexOf(b[1]) > -1) {
                         score = score + 2;
                         $("#" + a + "good1").show();
+                        matchFunction(a);
                     }
                 }
 
@@ -578,11 +619,13 @@ function GoodESearchHide(temName, id) {
                 if (typeof weakAgainst[0] !== 'undefined') {
                     if (weakAgainst[j].indexOf(b[0]) > -1) {
                         $("#" + a + "good2").show();
+                        matchFunction(a);
                         score = score + 2;
                     }
                     if (weakAgainst[j].indexOf(b[1]) > -1) {
                         score = score + 2;
                         $("#" + a + "good2").show();
+                        matchFunction(a);
                     }
                 }
 
@@ -602,6 +645,7 @@ function GoodESearchHide(temName, id) {
         $("#AMPHATYRgood2").hide();
         $("#VALIARgood2").hide();
         $("#RAIGNETgood2").hide();
+        calcMidBox();
     }
 
     function calcMidBox() {
@@ -616,11 +660,13 @@ function GoodESearchHide(temName, id) {
                     if (typeof weakAgainst1[0] !== 'undefined') {
                         if (weakAgainst1[j].indexOf(b[0]) > -1) {
                             $("#" + a + "good12").show();
+                            matchFunction(a);
                             score = score + 2;
                         }
                         if (weakAgainst1[j].indexOf(b[1]) > -1) {
                             score = score + 2;
                             $("#" + a + "good12").show();
+                            matchFunction(a);
                         }
                     }
                 }
@@ -628,11 +674,13 @@ function GoodESearchHide(temName, id) {
                     if (typeof weakAgainst2[0] !== 'undefined') {
                         if (weakAgainst2[j].indexOf(b[0]) > -1) {
                             $("#" + a + "good12").show();
+                            matchFunction(a);
                             score = score + 2;
                         }
                         if (weakAgainst2[j].indexOf(b[1]) > -1) {
                             score = score + 2;
                             $("#" + a + "good12").show();
+                            matchFunction(a);
                         }
                     }
                 }
@@ -663,6 +711,7 @@ function GoodESearchHide(temName, id) {
     $("#AMPHATYRgood12").hide();
     $("#VALIARgood12").hide();
     $("#RAIGNETgood12").hide();
+    matchFunction(a);
 }
 
 function showGList(id) {
