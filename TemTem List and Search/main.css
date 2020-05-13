@@ -450,6 +450,7 @@
     width: auto;
     background-color: transparent;
     border-color: transparent;
+    float: left;
 }
 .mySearch:hover,
 .mySearch:focus{
