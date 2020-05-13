@@ -58,29 +58,30 @@ function MakeTemCallSolo(searchName, query, nameArray)
 
         success: function(result)
         {   
-
             // result.map((item, index) => 
             // {
             //     createSquadImg(result.wikiPortraitUrlLarge, index+1, searchName);
             // });
-             if(result.length == 6)
-             {
-                 for(i = 0; i<result.length;i++)
-                 {
-                      createSquadImg(result[i].wikiPortraitUrlLarge, i+1, searchName);
-                 }
-            }
+            if(result.length == 6)
+            {
+                for(i = 0; i<result.length;i++)
+                {
+                    createSquadImg(result[i].wikiPortraitUrlLarge, i+1, searchName);
+                }
+            } 
             else if(result.length < 6)
             {
-                // check for duplicates! let's hope theres only one..
-                console.log("duplicates found, some TemTem went missing!");
-                    // RESULT CONTAINS .wikiPortraitUrlLarge AND .name
-                    // IT ONLY CONTAINS ONE INSTANCE OF DUPLICATE NAMES
-                    // nameArray HOLDS ALL THE NAMES THAT WAS SEARCHED FOR (e.g. "Oree", "Oree" etc)
-                    // COMPARE result.name with nameArray to see how many times each name occurs
-                    // createSquadImg 6 times, with the found duplicates!  
+                console.log(nameArray);
+                for (i = 0; i < nameArray.length;i++){
+                    for(j = 0; j < globalInput[0].length;j++){
+                        console.log(globalInput[0][j].name);
+                        if (nameArray[i] == globalInput[0][j].name){
+                            createSquadImg(globalInput[0][j].wikiPortraitUrlLarge, i+1, nameArray[i]);
+                        }
+                    }    
+                }
             }
-             }
+        }
     });
 }
 
@@ -198,13 +199,14 @@ var images5 = []; // for showing enemy 2 in compare
 var images6 = []; // for showing good against enemy 1
 var images7 = []; // for showing good against enemy 2
 var images8 = []; // for showing good against both enemies
+var globalInput = [];
 // function receiving data from TemCall (use to process result)
 function TemCallResult(input)
 {
+    globalInput.push(input);
     var images = [];    // for showing search
     var images2 = [];   // for showing squad modal
     var images3 = [];   // for showing enemy modal
-    
     input.map((item, index ) => 
     {
         let img = '<div id="'+item.name.toUpperCase()+'" class="imgCard" '+'onclick=clickEvent('+item.name.toUpperCase()+')>' + CreateImg(item.wikiPortraitUrlLarge, index, item.name, item.types) + '</div>';
@@ -226,7 +228,7 @@ function TemCallResult(input)
         images5.push(img5);
         images4.push(img4);
         images3.push(img3);
-        images2.push(img2);
+        images2.push(img2);      
     })
 
     $mainContainer.html(images);
@@ -309,7 +311,7 @@ function ServerDataFetch(input, dataType)
                 let stub = sub.substr(1, sub.length -2);
                 stringArray.push(stub);              
             });
-            console.log(stringArray);
+            //console.log(stringArray);
             PopulateSquad(stringArray);
             break;
         case "temListUpdate":
@@ -328,14 +330,14 @@ function PopulateSquad(squadArray)
 {   
     if(squadArray.length == 6)
     { 
-        query = "wikiPortraitUrlLarge" ;   
+        query = "wikiPortraitUrlLarge, name" ;   
         // MakeTemCallSolo(squadArray[0], query);
         // MakeTemCallSolo(squadArray[1], query);
         // MakeTemCallSolo(squadArray[2], query);
         // MakeTemCallSolo(squadArray[3], query);
         // MakeTemCallSolo(squadArray[4], query);
         // MakeTemCallSolo(squadArray[5], query);
-        console.log(squadArray);
+        //console.log(squadArray);
         temCallString = squadArray[0] + "," + squadArray[1] + "," + squadArray[2] + "," + squadArray[3] + "," + squadArray[4] + "," + squadArray[5];
         MakeTemCallSolo(temCallString, query, squadArray);
     }
