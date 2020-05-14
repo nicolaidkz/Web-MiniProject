@@ -29,42 +29,36 @@ var temWeakness = [];
 
 MakeTemWeakCall();
 
-function matchFunction(temName){
-    if ($("#t1").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+function matchFunction(temName) {
+    if ($("#t1").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
-    if ($("#t2").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+    if ($("#t2").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
-    if ($("#t3").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+    if ($("#t3").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
-    if ($("#t4").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+    if ($("#t4").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
-    if ($("#t5").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+    if ($("#t5").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
-    if ($("#t6").html().toUpperCase().indexOf(temName) > -1)
-    {
-        $("#" + temName +"good1").attr("class","inSquad");
-        $("#" + temName +"good2").attr("class","inSquad");
-        $("#" + temName +"good12").attr("class","inSquad");
+    if ($("#t6").html().toUpperCase().indexOf(temName) > -1) {
+        $("#" + temName + "good1").attr("class", "inSquad");
+        $("#" + temName + "good2").attr("class", "inSquad");
+        $("#" + temName + "good12").attr("class", "inSquad");
     }
 }
 
@@ -242,7 +236,7 @@ function TemCallResult(input) {
         images.push(img);
         temNames.push(nme);
         temTypes.push(tpe);
-        let img2 = '<div id="' + item.name.toUpperCase() + 'modal"' + ' class="modalResult") onclick=UpdateST("'+ item.name +'")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100 + index, item.name) + '</div>';
+        let img2 = '<div id="' + item.name.toUpperCase() + 'modal"' + ' class="modalResult") onclick=UpdateST("' + item.name + '")>' + CreateImgNoType(item.wikiPortraitUrlLarge, 100 + index, item.name) + '</div>';
         let img3 = '<div id="' + item.name.toUpperCase() + 'enemyModal"' + ' class="enemyModalResult") onclick=alert("' + item.name + '")>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 200 + index, item.name) + '</div>';
         let img4 = '<div id="' + item.name.toUpperCase() + '1GList"' + ' class="enemyModalResult") onclick=GSelect("' + item.name + '",' + 1 + ')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 400 + index, item.name) + '</div>';
         let img5 = '<div id="' + item.name.toUpperCase() + '2GList"' + ' class="enemyModalResult") onclick=GSelect("' + item.name + '",' + 2 + ')>' + CreateImgNoTypeNoButton(item.wikiPortraitUrlLarge, 500 + index, item.name) + '</div>';
@@ -305,29 +299,26 @@ function UpdateRoster()         // CALL THIS WHEN YOU HAVE UPDATED THE SQUAD ROS
         squadArray[i] = $("#t" + (i + 1)).children("img").attr("name");
     }
     stringSquad = '["' + squadArray[0] + '","' + squadArray[1] + '","' + squadArray[2] + '","' + squadArray[3] + '","' + squadArray[4] + '","' + squadArray[5] + '"]';
-    console.log(squadArray[0]);
+    //console.log(squadArray[0]);
     MakeServerCall('temListUpdate', { user: localStorage.getItem('user'), tl: stringSquad });
 }
-function UpdateST(checkName)
-{
-if(globalID != "")
-  {
-      var url;
-      var name = "";
-      for(i=0;i<globalInput[0].length;i++)
-      {
-          if(globalInput[0][i].name == checkName) url = globalInput[0][i].wikiPortraitUrlLarge;
-      }
-      createSquadImg(url,parseInt(globalID),checkName);
-      CloseModal();
-  }
+function UpdateST(checkName) {
+    if (globalID != "") {
+        var url;
+        var name = "";
+        for (i = 0; i < globalInput[0].length; i++) {
+            if (globalInput[0][i].name == checkName) url = globalInput[0][i].wikiPortraitUrlLarge;
+        }
+        createSquadImg(url, parseInt(globalID), checkName);
+        CloseModal();
+    }
 
 }
 function ServerDataFetch(input, dataType) {
 
     switch (dataType) {
         case "authen_login":
-            if(input.length > 50) alert("Error logging in, incorrect username or password.");
+            if (input.length > 50) alert("Error logging in, incorrect username or password.");
             else alert("Welcome " + input);
             //document.cookie = input;    // save the username as a cookie
             //console.log("cookie saved: " + document.cookie);
@@ -342,12 +333,7 @@ function ServerDataFetch(input, dataType) {
             // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
             break;
         case "createUser":
-            
-            if(input == "name already exists"){
-                alert(input);
-            } else {
-                alert("User successfully created")
-            }
+            alert(input);
             // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
             break;
         case "temListFetch":
@@ -381,21 +367,17 @@ function ServerDataFetch(input, dataType) {
 function PopulateSquad(squadArray) {
     if (squadArray.length == 6) {
         query = "wikiPortraitUrlLarge, name";
-        for(i=0;i<squadArray.length; i++)
-        {
-            if(squadArray[i] == "")
-            {
-                createSquadImg("typeimg/plus.png", i+1, "");
+        for (i = 0; i < squadArray.length; i++) {
+            if (squadArray[i] == "") {
+                createSquadImg("typeimg/plus.png", i + 1, "");
             }
         }
         temCallString = squadArray[0] + "," + squadArray[1] + "," + squadArray[2] + "," + squadArray[3] + "," + squadArray[4] + "," + squadArray[5];
         MakeTemCallSolo(temCallString, query, squadArray);
     }
-    else 
-    {
+    else {
         console.log("error on squadArray length >> " + squadArray);
-        for(i = 1; i<=6; i++)
-        {
+        for (i = 1; i <= 6; i++) {
             createSquadImg("typeimg/plus.png", i, "");
         }
     }
@@ -719,16 +701,15 @@ function GoodESearchHide(temName, id) {
 }
 
 function showGList(id) {
-    if (id == 1)
-    {
-        $1gModal.show(); 
-        $2gModal.hide();  
-    } 
-    else if (id == 2){
-        $2gModal.show(); 
+    if (id == 1) {
+        $1gModal.show();
+        $2gModal.hide();
+    }
+    else if (id == 2) {
+        $2gModal.show();
         $1gModal.hide();
     }
-    CloseModal();
+    $sModal.hide();
 }
 function GSelect(temName, id) {
     if (id == 1) $1gModal.hide(); GSearchHide(temName, id);
