@@ -342,7 +342,12 @@ function ServerDataFetch(input, dataType) {
             // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
             break;
         case "createUser":
-            alert(input);
+            
+            if(input == "name already exists"){
+                alert(input);
+            } else {
+                alert("User successfully created")
+            }
             // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
             break;
         case "temListFetch":
