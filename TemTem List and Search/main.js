@@ -1,35 +1,45 @@
-jQuery.support.cors = true;
-var $mainContainer = $("#mainContent"); // jquery variable
-$mainContainer.html("");                // set html to nothing
-let $navButtons = $("#navGrid").children("a");                              // get all a-tag children of navGrid
-let $squadCard = $("#squadCard");
-var navButtonRef = ["main.html", "compare.html", "login.html"];
-let $sModal = $("#squadModal");
-let $eModal = $("#enemyModal");
-let $modalResult = $("#resultList");
-let $enemyModalResult = $("#resultList2");
-let $1gModal = $("#E1Gmodal");
-let $2gModal = $("#E2Gmodal");
-let $1gList = $("#E1Gimg");
-let $2gList = $("#E2Gimg");
-let $1gBox = $("#E1GList");
-let $2gBox = $("#E2GList");
-let $good1 = $("#good1Content");
-let $good12 = $("#good12Content");
-let $good2 = $("#good2Content");
-MakeTemCall();                          // make a TemCall to API
-//MakeServerCall();
+jQuery.support.cors = true;                                             // support cross-origin-policies
+var $mainContainer = $("#mainContent"); 
+$mainContainer.html("");                                                // initially set main content blank 
+let $navButtons = $("#navGrid").children("a");                          // all 'a' elements in navGrid                        
+let $squadCard = $("#squadCard");                                       // the slide out card for the squad
+var navButtonRef = ["main.html", "compare.html", "login.html"];         // hrefs for top navigation-buttons
+let $sModal = $("#squadModal");                                         // slide out modal for configuring squad
+let $eModal = $("#enemyModal");                                         // * DEPRECATED * 
+let $modalResult = $("#resultList");                                    // on SEARCH, resultList shows the temtem you searched for
+let $enemyModalResult = $("#resultList2");                              // * DEPRECATED *
+let $1gModal = $("#E1Gmodal");                                          // slide out card for enemy 1 on COMPARE
+let $2gModal = $("#E2Gmodal");                                          // slide out card for enemy 2 on COMPARE
+let $1gList = $("#E1Gimg");                                             // ENEMY 1 list of temtem
+let $2gList = $("#E2Gimg");                                             // ENEMY 2 list of temtem
+let $1gBox = $("#E1GList");                                             // ENEMY 1 location
+let $2gBox = $("#E2GList");                                             // ENEMY 2 location
+let $good1 = $("#good1Content");                                        // calculated good against 1 location
+let $good12 = $("#good12Content");                                      // calculated good against both location
+let $good2 = $("#good2Content");                                        // calculated good against 2 location
+var temNames = [];                                                      // array to store Temtem names (FOR SEARCH)
+var temTypes = [];                                                      // array to store Temtem types (FOR SEARCH)
+var temWeakness = [];                                                   // array to store weaknesses (FOR COMPARE)
+var globalID;                                                           // this variable holds the ID of the temtem being replaced in squad, if any.
+var images4 = [];                                                       // for showing enemy 1 in COMPARE
+var images5 = [];                                                       // for showing enemy 2 in COMPARE
+var images6 = [];                                                       // for showing good against enemy 1
+var images7 = [];                                                       // for showing good against enemy 2
+var images8 = [];                                                       // for showing good against both enemies
+var images9 = [];
+var images10 = [];
+var globalInput = [];
+var weakAgainst1, weakAgainst2, strongAgainst1,                         // these all help with calculating
+strongAgainst2, neutralAgainst1, neutralAgainst2;                       // appropriate temtems in COMPARE
+var weakAgainst = [];
+var strongAgainst = [];                                                 // .. including these.
+var neutralAgainst = [];
 
+MakeTemCall();                                                          // make a call to API fetching all info on all temtem
+MakeTemWeakCall();                                                      // make a call to API fetching weakness data
 
-//makeCorsRequest();
-
-var temNames = [];                      // array to store Temtem names
-var temTypes = [];                      // array to store Temtem types
-var temWeakness = [];
-
-MakeTemWeakCall();
-
-function matchFunction(temName) {
+// this method is for COMPARE. it highlights temtems in the 'good against' lists green if they appear in squad.
+function matchFunction(temName) {                                       
     if ($("#t1").html().toUpperCase().indexOf(temName) > -1) {
         $("#" + temName + "good1").attr("class", "inSquad");
         $("#" + temName + "good2").attr("class", "inSquad");
@@ -61,25 +71,22 @@ function matchFunction(temName) {
         $("#" + temName + "good12").attr("class", "inSquad");
     }
 }
-
+// onload manages hrefs on navigation buttons, and localStorage loading.
 onload = function () {
-    // lets do things to the navButtons!
-    $navButtons.addClass("navButton");                                      // give them style
+    $navButtons.addClass("navButton");                                      
     $navButtons.each(function (index) {
-        if (navButtonRef[index])                                             // is it TRUTHY ? (not true)
+        if (navButtonRef[index])                                             
         {
-            $(this).attr("href", navButtonRef[index]);                      // maybe give them a href?
+            $(this).attr("href", navButtonRef[index]);                      
         }
         else console.log(`missing URL for navButton  ${(index + 1)} in navButtonRef!`);
-        //if(document.cookie != "") $("#login").html(document.cookie);
         if (localStorage.getItem("user")) $("#login").html(localStorage.getItem("user").toUpperCase());
         for (i = 1; i <= 6; i++) {
             if (localStorage.getItem('tem' + i)) $("#t" + i).html(localStorage.getItem('tem' + i));
         }
     });
 }
-
-// get *SOME* temtem with *SOME* information
+// get *SOME* temtem with *SOME* information with this API call
 function MakeTemCallSolo(searchName, query, nameArray) {
     $.ajax(
         {
@@ -108,8 +115,7 @@ function MakeTemCallSolo(searchName, query, nameArray) {
             }
         });
 }
-
-// get *ALL* temtem with *ALL* information
+// get *ALL* temtem with *ALL* information with this API call
 function MakeTemCall() {
     $.ajax(
         {
@@ -122,6 +128,7 @@ function MakeTemCall() {
             }
         });
 }
+// get *ALL* weaknesses based on types with this API call
 function MakeTemWeakCall() {
     $.ajax(
         {
@@ -135,6 +142,7 @@ function MakeTemWeakCall() {
             }
         });
 }
+// generic function for communicating with the backend server, takes a target and a query
 function MakeServerCall(url, dataField) {
     $.ajax(
         {
@@ -169,25 +177,76 @@ function MakeServerCall(url, dataField) {
             },
         });
 }
+// function processing results from backend server queries
+function ServerDataFetch(input, dataType) {
 
+    switch (dataType) {
+        case "authen_login":
+            if (input.length > 50) alert("Error logging in, incorrect username or password.");
+            else alert("Welcome " + input);
+            //document.cookie = input;    // save the username as a cookie
+            //console.log("cookie saved: " + document.cookie);
+
+            if (input.length = 0 || input.length < 100) {
+                localStorage.setItem("user", input);
+                $("#login").html(input.toUpperCase());    // update the login button to relfect the username!
+            }
+            // here we should make a temListFetch to update the squad list.
+            let dataField = { user: localStorage.getItem("user") };
+            MakeServerCall('temListFetch', dataField);
+            // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
+            break;
+        case "createUser":
+            if(input=="name already exists"){
+                alert(input);
+            } else {
+                alert("User successfully created")
+            }
+            // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
+            break;
+        case "temListFetch":
+            // since we are fetching the squad, we want to populate that squad with method PopulateSquad(input).
+            // first we convert the whole thing to an array of strings..
+            let trim = input.slice(1, input.length - 1);
+            let split = trim.split(",");
+            console.log("successfully fetched: " + input);
+            console.log("slice: " + trim + " split: " + split[0]);
+            console.log(split[0]);
+            var stringArray = [];
+            split.forEach(sub => {
+                let stub = sub.substr(1, sub.length - 2);
+                stringArray.push(stub);
+            });
+            //console.log(stringArray);
+            PopulateSquad(stringArray);
+            break;
+        case "temListUpdate":
+            // here we have updated the temList in DB. It should always be the last step and just return some confirmation.
+            //alert(input);
+            break;
+        default:
+            // the response we got did not look familiar, time to panic and eat butter biscuits.
+            alert("unknown response: " + input);
+            break;
+    }
+
+}
+// this function collapses and expands the squad card with a class toggle
 function ToggleSquadCard() {
-    //console.log("clickety");
     if ($squadCard.hasClass("expand")) CloseModal();
     $squadCard.toggleClass("expand collapse");
 }
-
+// this function closes the squad modal rather than sliding
 function CloseModal() {
     $sModal.hide();
     //console.log("trying to close modal");
     UpdateRoster();
 }
-var globalID;
+// this function toggles the squad modal sliding down/up
 function ToggleModal(id) {
     if ($sModal.is(":visible")) {
-        $sModal.slideUp("slow");  // we should save choice of temtem (if any) before closing
-        console.log(id);
+        $sModal.slideUp("slow"); 
         globalID = id;
-        //UpdateRoster();
     }
     else {
         $sModal.slideDown("fast");
@@ -198,14 +257,13 @@ function ToggleModal(id) {
         //UpdateRoster();
     }
 }
-
+// this function closes COMPARE modals for enemies
 function EnemyCloseModal(id) {
     if (id = 1) $1gModal.hide();
     if (id = 2) $2gModal.hide();
     $eModal.hide();
-    //console.log("trying to close modal");
 }
-
+// this function toggles COMPARE modals for enemies
 function EnemyToggleModal(id) {
     if ($eModal.is(":visible")) {
         $eModal.slideUp("slow");  // we should save choice of temtem (if any) before closing USE temListUpdate HERE !!!
@@ -215,14 +273,6 @@ function EnemyToggleModal(id) {
         //console.log(id); // here we know which squad placement is being changed
     }
 }
-var images4 = []; // for showing enemy 1 in compare
-var images5 = []; // for showing enemy 2 in compare
-var images6 = []; // for showing good against enemy 1
-var images7 = []; // for showing good against enemy 2
-var images8 = []; // for showing good against both enemies
-var images9 = [];
-var images10 = [];
-var globalInput = [];
 // function receiving data from TemCall (use to process result)
 function TemCallResult(input) {
     globalInput.push(input);
@@ -288,11 +338,12 @@ function TemCallResult(input) {
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
 }
-
+// function receiving data from TemCallWeak (use to process result)
 function TemCallWeakResult(input) {
     temWeakness.push(input);
 }
-function UpdateRoster()         // CALL THIS WHEN YOU HAVE UPDATED THE SQUAD ROSTER
+// function looping over squad names and updating the backend with new roster.
+function UpdateRoster()     
 {
     var squadArray = [];
     for (i = 0; i <= 6; i++) {
@@ -302,6 +353,7 @@ function UpdateRoster()         // CALL THIS WHEN YOU HAVE UPDATED THE SQUAD ROS
     //console.log(squadArray[0]);
     MakeServerCall('temListUpdate', { user: localStorage.getItem('user'), tl: stringSquad });
 }
+// onclick function for squad list images (replaces temtem)
 function UpdateST(checkName) {
     if (globalID != "") {
         var url;
@@ -314,60 +366,7 @@ function UpdateST(checkName) {
     }
 
 }
-function ServerDataFetch(input, dataType) {
-
-    switch (dataType) {
-        case "authen_login":
-            if (input.length > 50) alert("Error logging in, incorrect username or password.");
-            else alert("Welcome " + input);
-            //document.cookie = input;    // save the username as a cookie
-            //console.log("cookie saved: " + document.cookie);
-
-            if (input.length = 0 || input.length < 100) {
-                localStorage.setItem("user", input);
-                $("#login").html(input.toUpperCase());    // update the login button to relfect the username!
-            }
-            // here we should make a temListFetch to update the squad list.
-            let dataField = { user: localStorage.getItem("user") };
-            MakeServerCall('temListFetch', dataField);
-            // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
-            break;
-        case "createUser":
-            if(input=="name already exists"){
-                alert(input);
-            } else {
-                alert("User successfully created")
-            }
-            // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
-            break;
-        case "temListFetch":
-            // since we are fetching the squad, we want to populate that squad with method PopulateSquad(input).
-            // first we convert the whole thing to an array of strings..
-            let trim = input.slice(1, input.length - 1);
-            let split = trim.split(",");
-            console.log("successfully fetched: " + input);
-            console.log("slice: " + trim + " split: " + split[0]);
-            console.log(split[0]);
-            var stringArray = [];
-            split.forEach(sub => {
-                let stub = sub.substr(1, sub.length - 2);
-                stringArray.push(stub);
-            });
-            //console.log(stringArray);
-            PopulateSquad(stringArray);
-            break;
-        case "temListUpdate":
-            // here we have updated the temList in DB. It should always be the last step and just return some confirmation.
-            //alert(input);
-            break;
-        default:
-            // the response we got did not look familiar, time to panic and eat butter biscuits.
-            alert("unknown response: " + input);
-            break;
-    }
-
-}
-
+// function populating the squad roster (fetching from server and updating images)
 function PopulateSquad(squadArray) {
     if (squadArray.length == 6) {
         query = "wikiPortraitUrlLarge, name";
@@ -386,6 +385,7 @@ function PopulateSquad(squadArray) {
         }
     }
 }
+// shortcut for creating images for the squad roster
 function createSquadImg(url, spot, name) {
     let img = '<img class="squadImg" src=' + url + ' name="' + name + '">';
     switch (spot) {
@@ -418,37 +418,37 @@ function createSquadImg(url, spot, name) {
 
     }
 }
-// function displaying an image from a url
+// shortcut for creating images without type info with button
 function CreateImgNoType(url, index, name) {
     let img = '<img id="mTem' + index + 'img" class="smallImgModal" src="' + url + '" alt="' + url + '" title="' + name + '" >';
     let names = '<p id="mTem' + index + 'name" class="temNameModal">' + name + "</p>";
     let but = '<img id="buttonFor' + index + '" src="typeimg/plus.png" class="modalSelectButton">' + '</img>';
     return img + names + but;
 }
+// shortcut for creating images without type info without button
 function CreateImgNoTypeNoButton(url, index, name) {
     let img = '<img id="mTem' + index + 'img" class="smallImgModal" src="' + url + '" alt="' + url + '" title="' + name + '" >';
     let names = '<p id="mTem' + index + 'name" class="temNameModal">' + name + "</p>";
     return img + names;
 }
-
+// shortcut for creating images with name and type
 function CreateImg(url, index, name, types) {
     let img = '<img id="tem' + index + 'img" class="smallImg" src="' + url + '" alt="' + url + '" title="' + name + '" >';
     let names = '<p id="tem' + index + 'name" class="temName">' + name + "</p>";
     let type = '<p id="tem' + index + 'types" class="temType">' + types + "</p>";
     return img + names + type;
 }
-
+// shortcut for namecreation
 function CreateName(index, name) {
     let names = name.toUpperCase();
     return names;
 }
-
+// shortcut for typecreation
 function CreateType(index, types) {
     let type = types;
     return type;
 }
-
-
+// this function hides/shows results based on search input on SEARCH
 function searchHide() {
     var input, input2, filter, a, b, i;
     input = document.getElementById("myInput");
@@ -474,7 +474,7 @@ function searchHide() {
     $("#VALIAR").hide();
     $("#RAIGNET").hide();
 }
-
+// this function hides/shows results based on search input in squad modal
 function searchHideModal() {
     var input, filter;
     input = document.getElementById("modalInput");
@@ -490,6 +490,7 @@ function searchHideModal() {
 
     }
 }
+// this function hides/shows enemy temtem based on selection
 function enemySearchHideModal(id) {
     var input, filter;
     input = document.getElementById("enemyModalInput" + id);
@@ -505,6 +506,7 @@ function enemySearchHideModal(id) {
 
     }
 }
+// this function shows/hides enemy temtem and adds appropriate onclick/class
 function GSearchHide(temName, id) {
     var filter;
     filter = temName.toUpperCase();
@@ -545,8 +547,7 @@ function GSearchHide(temName, id) {
         temWeaknessCalc(temName, 2);
     }
 }
-
-var weakAgainst1, weakAgainst2, strongAgainst1, strongAgainst2, neutralAgainst1, neutralAgainst2;
+// this function calculates and displays the 'good against' lists
 function GoodESearchHide(temName, id) {
     if (id == 1) {
         weakAgainst1 = weakAgainst;
@@ -703,7 +704,7 @@ function GoodESearchHide(temName, id) {
     $("#RAIGNETgood12").hide();
     matchFunction(a);
 }
-
+// hiding showing modal logic
 function showGList(id) {
     if (id == 1) {
         $1gModal.show();
@@ -715,19 +716,20 @@ function showGList(id) {
     }
     $sModal.hide();
 }
+// hiding showing modal logic
 function GSelect(temName, id) {
     if (id == 1) $1gModal.hide(); GSearchHide(temName, id);
     if (id == 2) $2gModal.hide(); GSearchHide(temName, id);
 
 }
+// logic for creating user 
 function CreateUserBut() {
     username = document.getElementById("cuser").value;
     pass = document.getElementById("cpass").value;
     dataField = { user: username, pass: pass };
     MakeServerCall('createUser', dataField);
 }
-
-
+// logic for logging in user
 function LoginUserBut() {
     username = document.getElementById("luser").value;
     pass = document.getElementById("lpass").value;
@@ -735,11 +737,7 @@ function LoginUserBut() {
     MakeServerCall('authen_login', dataField);
     //MakeServerCall('temListFetch', dataField);
 }
-
-var weakAgainst = [];
-var strongAgainst = [];
-var neutralAgainst = [];
-
+// calculation function for determining weaknesses for specific temtem
 function temWeaknessCalc(temName, id) {
     //console.log(temName.toUpperCase());
     //console.log(id);
