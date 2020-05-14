@@ -95,20 +95,16 @@ function MakeTemCallSolo(searchName, query, nameArray) {
             data: { names: searchName, fields: query },
 
             success: function (result) {
-                // result.map((item, index) =>
-                // {
-                //     createSquadImg(result.wikiPortraitUrlLarge, index+1, searchName);
-                // });
                 if (result.length == 6) {
                     for (i = 0; i < result.length; i++) {
                         createSquadImg(result[i].wikiPortraitUrlLarge, i + 1, searchName);
                     }
                 }
                 else if (result.length < 6) {
-                    console.log(nameArray);
+                    //console.log(nameArray);
                     for (i = 0; i < nameArray.length; i++) {
                         for (j = 0; j < globalInput[0].length; j++) {
-                            console.log(globalInput[0][j].name);
+                            //console.log(globalInput[0][j].name);
                             if (nameArray[i] == globalInput[0][j].name) {
                                 createSquadImg(globalInput[0][j].wikiPortraitUrlLarge, i + 1, nameArray[i]);
                             }
@@ -331,8 +327,8 @@ function ServerDataFetch(input, dataType) {
 
     switch (dataType) {
         case "authen_login":
-            if(input.substr(0,7) == "Welcome") alert(input);
-            else alert("Error logging in, incorrect username or password.");
+            if(input.length > 50) alert("Error logging in, incorrect username or password.");
+            else alert("Welcome " + input);
             //document.cookie = input;    // save the username as a cookie
             //console.log("cookie saved: " + document.cookie);
 
@@ -380,13 +376,13 @@ function ServerDataFetch(input, dataType) {
 function PopulateSquad(squadArray) {
     if (squadArray.length == 6) {
         query = "wikiPortraitUrlLarge, name";
-        // MakeTemCallSolo(squadArray[0], query);
-        // MakeTemCallSolo(squadArray[1], query);
-        // MakeTemCallSolo(squadArray[2], query);
-        // MakeTemCallSolo(squadArray[3], query);
-        // MakeTemCallSolo(squadArray[4], query);
-        // MakeTemCallSolo(squadArray[5], query);
-        //console.log(squadArray);
+        for(i=0;i<squadArray.length; i++)
+        {
+            if(squadArray[i] == "")
+            {
+                createSquadImg("typeimg/plus.png", i+1, "");
+            }
+        }
         temCallString = squadArray[0] + "," + squadArray[1] + "," + squadArray[2] + "," + squadArray[3] + "," + squadArray[4] + "," + squadArray[5];
         MakeTemCallSolo(temCallString, query, squadArray);
     }
