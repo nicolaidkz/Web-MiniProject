@@ -203,6 +203,8 @@ function ToggleModal(id) {
         $sModal.slideDown("fast");
         //console.log(id); // here we know which squad placement is being changed
         globalID = id;
+        EnemyCloseModal(1);
+        EnemyCloseModal(2);
         //UpdateRoster();
     }
 }
@@ -329,7 +331,8 @@ function ServerDataFetch(input, dataType) {
 
     switch (dataType) {
         case "authen_login":
-            alert('Success! WELCOME ' + input);
+            if(input.substr(0,7) == "Welcome") alert(input);
+            else alert("Error logging in, incorrect username or password.");
             //document.cookie = input;    // save the username as a cookie
             //console.log("cookie saved: " + document.cookie);
 
@@ -343,7 +346,7 @@ function ServerDataFetch(input, dataType) {
             // we should probably also change the content of login.html to just be "hi dave!" and a logout button?
             break;
         case "createUser":
-            alert('Successfully created user');
+            alert(input);
             // here we should make an authen_login request to log in the newly created user (wait, we would need pass for that..)
             break;
         case "temListFetch":
@@ -715,8 +718,16 @@ function GoodESearchHide(temName, id) {
 }
 
 function showGList(id) {
-    if (id == 1) $1gModal.show();
-    else if (id == 2) $2gModal.show();
+    if (id == 1)
+    {
+        $1gModal.show(); 
+        $2gModal.hide();  
+    } 
+    else if (id == 2){
+        $2gModal.show(); 
+        $1gModal.hide();
+    }
+    CloseModal();
 }
 function GSelect(temName, id) {
     if (id == 1) $1gModal.hide(); GSearchHide(temName, id);
