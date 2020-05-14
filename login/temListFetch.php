@@ -1,4 +1,7 @@
 <?php
+// This script is used to fetch an existing users temlist when they log into the web site
+// it uses the localhost server with the database name login and then a database admin user
+// to access the database via php code
 $host_name = "localhost";
 $database  = "login";
 $user_name = "login";
@@ -16,6 +19,8 @@ if (isset($_POST['user']))
     //$inputPassword = $_POST['pass'];
 }
 
+// An sql query that checks if what username the inputtet username coresponds to and returns that
+// users tem list
 $sql = "SELECT temList FROM users WHERE username = '".$inputUsername."'";
 
 $result = mysqli_query($connect, $sql);

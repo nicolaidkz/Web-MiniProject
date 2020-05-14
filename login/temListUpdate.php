@@ -1,4 +1,8 @@
 <?php
+// This script is used to update an existing users temlist when they alter the temtem lineup on
+// the website
+// it uses the localhost server with the database name login and then a database admin user
+// to access the database via php code
 $host_name = "localhost";
 $database  = "login";
 $user_name = "login";
@@ -17,10 +21,10 @@ if (isset($_POST['user']) and isset($_POST['tl']))
     $inputTemList = $_POST['tl'];
 }
 
-//$inputTemList = '["Houchic", "Adoroboros", "temName", "bullshit", "trial", "sixxxx"]';
+// An sql query that sets the temlist via the inputted temlist where ever the inputet username
+// coresponds to an existing username on the servers database and then updates that user temlist
 $sql = "UPDATE users SET temList = '".$inputTemList."' WHERE username = '".$inputUsername."'";
-//$sql = 'REPLACE INTO users(temList, "'.$inputTemList.'") WHERE username ="'.$inputUsername'"';
-//$sql="UPDATE users SET temList = REPLACE(temList,'".$inputTemList"') WHERE username = '".$inputUsername"'"; 
+
 if (mysqli_query($connect, $sql)) {
     echo "<br/>Record updated successfully<br>";
 } else {
