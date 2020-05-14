@@ -8,6 +8,7 @@
     $select_db = mysqli_select_db($connection, 'login');
     if (!$select_db){
         die("Database Selection Failed" . mysqli_error($connection));
+        
     }
 
     if (isset($_POST['user']) and isset($_POST['pass'])){
@@ -21,7 +22,6 @@
         $query = "SELECT * FROM `users` WHERE username='$username' and Password='$password'";
  
         $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-
         
         
         $row = mysqli_fetch_array($result);

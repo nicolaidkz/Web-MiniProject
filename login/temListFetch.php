@@ -1,19 +1,28 @@
 <?php
-
-if (isset($_POST['user']) and isset($_POST['pass']))
+$host_name = "localhost";
+$database  = "login";
+$user_name = "login";
+$password  = "hej";
+$connect = mysqli_connect($host_name, $user_name, $password, $database);
+if(mysqli_connect_errno())
+    echo '<p>Failed to connect to MySQL: '.mysqli_connect_error().'</p>';
+else
+   // echo '<p>Connection to MySQL database ' . $database . ' successfully established.
+   // </p>';
+if (isset($_POST['user']))
 {
     // Assigning POST values to variables.
     $inputUsername = $_POST['user'];
-    $inputPassword = $_POST['pass'];
+    //$inputPassword = $_POST['pass'];
 }
 
-$sql = "SELECT username, temList FROM users WHERE username = '".$inputUsername."'";
+$sql = "SELECT temList FROM users WHERE username = '".$inputUsername."'";
 
 $result = mysqli_query($connect, $sql);
 
 if(mysqli_num_rows($result)>=1){
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<br/>Name: " . $row["username"]. " " . $row["temList"]. "<br>";
+        echo $row["temList"]; // theres a <p> coming from nowhere??
     }
     //echo"name already exists";
 } else { 
